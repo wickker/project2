@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'stuartmyers',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'demodb',
     port: 5432
   };
 }
@@ -62,7 +62,7 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
+const allPokemonModelsFunction = require('./models/random');
 
 const pokemonModelsObject = allPokemonModelsFunction( pool );
 

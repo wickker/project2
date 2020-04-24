@@ -7,8 +7,9 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Hello</h3>
+          <h3>Hello SEI-22</h3>
         </body>
+        <script src="./script.js"></script>
       </html>
     );
   }
