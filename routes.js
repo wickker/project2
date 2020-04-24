@@ -17,4 +17,6 @@ module.exports = (app, allModels) => {
 
   app.get('/', randomNumberControllerCallbacks.index)
 
+  app.get('/random/:id', randomNumberControllerCallbacks.rolladie)
+
 };
