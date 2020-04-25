@@ -1,16 +1,3 @@
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======             CONFIGURATION          =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
 
 const pg = require('pg');
 const url = require('url');
@@ -33,13 +20,12 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'stuartmyers',
+    user: 'postgres',
     host: '127.0.0.1',
-    database: 'demodb',
+    database: 'proj2',
     port: 5432
   };
 }
-
 
 const pool = new pg.Pool(configs);
 
@@ -47,42 +33,20 @@ pool.on('error', function (err) {
   console.log('idle client error', err.message, err.stack);
 });
 
+//Require model files
+const allMembersModelsFunction = require('./models/members');
+const allAthletesModelsFunction = require('./models/athletes');
+const allClubsModelsFunction = require('./models/clubs');
+
+const membersModelsObject = allMembersModelsFunction( pool );
+const athletesModelsObject = allAthletesModelsFunction( pool );
+const clubsModelsObject = allClubsModelsFunction( pool );
 
 
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======        REQUIRE MODEL FILES         =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
-const allPokemonModelsFunction = require('./models/random');
-
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
-
-
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======          MODULE EXPORTS            =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
+//Module exports
 
 module.exports = {
-  //make queries directly from here
+  //Make queries directly from here
   queryInterface: (text, params, callback) => {
     return pool.query(text, params, callback);
   },
@@ -90,10 +54,7 @@ module.exports = {
   // get a reference to end the connection pool at server end
   pool:pool,
 
-  /*
-   * ADD APP MODELS HERE
-   */
-
-  // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  members: membersModelsObject,
+  athletes: athletesModelsObject,
+  clubs: clubsModelsObject
 };

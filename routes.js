@@ -1,22 +1,10 @@
 module.exports = (app, allModels) => {
 
+  //Require the controller
+  const membersController = require('./controllers/members')(allModels);
+  const athletesController = require('./controllers/athletes')(allModels);
+  const clubsController = require('./controllers/clubs')(allModels);
 
-  /*
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   */
-
-  // require the controller
-  const randomNumberControllerCallbacks = require('./controllers/random')(allModels);
-
-  app.get('/', randomNumberControllerCallbacks.index)
-
-  app.get('/random/:id', randomNumberControllerCallbacks.rolladie)
+  app.get('/', membersController.showHome);
 
 };
