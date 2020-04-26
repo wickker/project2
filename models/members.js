@@ -1,10 +1,13 @@
 module.exports = (pool) => {
 
-  let getAll = () => {
-    
+  let registrationForm = (cb) => {
+    let queryText = "select * from member_type";
+    pool.query(queryText, (err, result) => {
+      cb(result.rows);
+    });
   }
 
   return {
-    getAll: getAll
+    registrationForm: registrationForm
   };
 };

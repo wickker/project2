@@ -18,6 +18,7 @@ class Main extends React.Component {
             crossorigin="anonymous"
           />
           <link rel="stylesheet" href="/styles.css"></link>
+          
         </head>
         <body>
           <Navigation />

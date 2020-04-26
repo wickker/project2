@@ -1,0 +1,14 @@
+.custom-select:required:invalid {
+  color: #72808e;
+}
+option[value=""][disabled] {
+  display: none;
+}
+option {
+  color: black;
+}
+
+.date_input {
+  text-transform: uppercase;
+  color: #72808e;
+}
