@@ -10,6 +10,8 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "bs-custom-file-input": "^1.3.4",
+    "cloudinary-core": "^2.8.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
     "express-react-views": "^0.10.5",

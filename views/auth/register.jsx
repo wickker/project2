@@ -1,6 +1,5 @@
 var React = require("react");
 var Main = require("../MAIN");
-var DateTime = require("react-datetime");
 
 class Register extends React.Component {
   render() {
@@ -61,7 +60,6 @@ class Register extends React.Component {
                 className="form-control"
               />
               <br></br>
-              {/* <h6>Select Membership Type:</h6> */}
               <select
                 name="membership_type"
                 className="custom-select"
@@ -76,19 +74,94 @@ class Register extends React.Component {
               <br></br>
               <br></br>
 
-              {/* <h6>Date Of Birth:</h6>
-              <input
-                type="date"
-                className="form-control date_input"
-              ></input> */}
+              {/* Athlete Profile */}
+              <div id="athlete-add-fields">
+                <h5 className="mb-3">Athlete Membership - Additional Fields</h5>
+                <select name="gender" className="custom-select" required>
+                  <option value="" disabled selected>
+                    Select Gender
+                  </option>
+                  <option value="Female">Female</option>
+                  <option value="Male">Male</option>
+                </select>
+                <br></br>
+                <br></br>
+                <h6 className="mb-1">Date Of Birth:</h6>
+                <input
+                  type="date"
+                  className="form-control date_input"
+                  name="dob"
+                ></input>
+                <br></br>
+                <h6 className="mb-1">Upload Profile Picture:</h6>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="dp-but">
+                      Upload
+                    </span>
+                  </div>
+                  <div class="custom-file">
+                    <input
+                      type="file"
+                      class="custom-file-input"
+                      id="dp-input"
+                      aria-describedby="dp-but"
+                    />
+                    <input type="hidden" id="dp_url" name="dp_url"></input>
+                    <label class="custom-file-label" for="dp-input">
+                      Choose Image File
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <img
+                    id="img-preview-dp"
+                    src="https://icons-for-free.com/iconfiles/png/512/add+create+new+profile+user+icon-1320185001431562707.png"
+                    height="200px"
+                    width="200px"
+                  ></img>
+                </div>
+              </div>
 
-              <div id="show-prof"></div>
+              {/* Club Profile */}
+              <div id="club-add-fields">
+                <h5 className="mb-3">Club Membership - Additional Fields</h5>
+                <h6 className="mb-1">Upload Club Logo:</h6>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="logo-but">
+                      Upload
+                    </span>
+                  </div>
+                  <div class="custom-file">
+                    <input
+                      type="file"
+                      class="custom-file-input"
+                      id="logo-input"
+                      aria-describedby="logo-but"
+                    />
+                    <input type="hidden" id="logo_url" name="logo_url"></input>
+                    <label class="custom-file-label" for="logo-input">
+                      Choose Image File
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <img
+                    id="img-preview-logo"
+                    src="https://cdn4.iconfinder.com/data/icons/adiante-apps-app-templates-incos-in-grey/512/app_type_real_state_512px_GREY.png"
+                    height="200px"
+                    width="200px"
+                  ></img>
+                </div>
+              </div>
 
               <br></br>
               <input className="btn btn-primary" type="submit" value="Submit" />
               <br></br>
             </form>
 
+            <script src="/bs-custom-file-input.js" />
             <script src="/script-register.js"></script>
           </div>
         </div>
