@@ -8,5 +8,9 @@ module.exports = (app, allModels) => {
 
   app.get("/register", membersController.showRegistrationForm);
 
+  app.post("/register", membersController.submitRegistrationForm);
+
   app.post("/register/new", membersController.showProfile);
+
+  app.post("/register/payment", membersController.payment);
 };

@@ -7,7 +7,15 @@ module.exports = (pool) => {
     });
   }
 
+  let paymentDetails = (id, cb) => {
+    let queryText = `select * from member_type where id=${id}`;
+    pool.query(queryText, (err, result) => {
+      cb(result.rows[0]);
+    });
+  }
+
   return {
-    registrationForm: registrationForm
+    registrationForm: registrationForm,
+    paymentDetails: paymentDetails
   };
 };

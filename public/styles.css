@@ -12,3 +12,11 @@ option {
   text-transform: uppercase;
   color: #72808e;
 }
+
+.input-group-text:hover{
+  cursor: pointer;
+}
+
+.custom-file-input:hover{
+  cursor: pointer;
+}

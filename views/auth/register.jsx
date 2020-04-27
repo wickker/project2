@@ -4,10 +4,13 @@ var Main = require("../MAIN");
 class Register extends React.Component {
   render() {
     let memberTypeArr = this.props.memberTypeArr;
-    let memberTypeArrHtml = memberTypeArr.map((ele) => {
-      let string = ele.type + " - $" + ele.price;
-      return <option value={ele.id}>{string}</option>;
+    let memberTypeArrHtml = memberTypeArr.map((element) => {
+      let string = element.type + " - $" + element.price;
+      return <option value={element.id}>{string}</option>;
     });
+
+    let defaultPicture =
+      "https://icons-for-free.com/iconfiles/png/512/add+create+new+profile+user+icon-1320185001431562707.png";
 
     const Register = (
       <div className="container">
@@ -20,14 +23,14 @@ class Register extends React.Component {
             <form method="POST" action="/register">
               <input
                 type="text"
-                name="fullname"
-                placeholder="Full Name As Per NRIC"
+                name="full_name"
+                placeholder="Full Name As Per NRIC OR Club Name"
                 className="form-control"
               />
               <br></br>
               <input
                 type="text"
-                name="pw"
+                name="password"
                 placeholder="Password"
                 className="form-control"
               />
@@ -41,27 +44,27 @@ class Register extends React.Component {
               <br></br>
               <input
                 type="text"
-                name="stadd"
+                name="street_address"
                 placeholder="Street Address"
                 className="form-control"
               />
               <br></br>
               <input
                 type="text"
-                name="unitno"
+                name="unit"
                 placeholder="Unit Number"
                 className="form-control"
               />
               <br></br>
               <input
                 type="text"
-                name="postalcode"
+                name="postal_code"
                 placeholder="Postal Code"
                 className="form-control"
               />
               <br></br>
               <select
-                name="membership_type"
+                name="membership_type_id"
                 className="custom-select"
                 id="member-type"
                 required
@@ -74,10 +77,15 @@ class Register extends React.Component {
               <br></br>
               <br></br>
 
-              {/* Athlete Profile */}
-              <div id="athlete-add-fields">
-                <h5 className="mb-3">Athlete Membership - Additional Fields</h5>
-                <select name="gender" className="custom-select" required>
+              {/* Profile Fields */}
+              <h5 className="mb-3 profile athlete">
+                Athlete Membership - Profile
+              </h5>
+
+              <h5 className="mb-3 profile club">Club Membership - Profile</h5>
+
+              <div className="profile athlete">
+                <select name="gender" className="custom-select">
                   <option value="" disabled selected>
                     Select Gender
                   </option>
@@ -86,50 +94,23 @@ class Register extends React.Component {
                 </select>
                 <br></br>
                 <br></br>
+              </div>
+
+              <div className="profile athlete">
                 <h6 className="mb-1">Date Of Birth:</h6>
                 <input
                   type="date"
                   className="form-control date_input"
-                  name="dob"
+                  name="date_of_birth"
                 ></input>
                 <br></br>
-                <h6 className="mb-1">Upload Profile Picture:</h6>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="dp-but">
-                      Upload
-                    </span>
-                  </div>
-                  <div class="custom-file">
-                    <input
-                      type="file"
-                      class="custom-file-input"
-                      id="dp-input"
-                      aria-describedby="dp-but"
-                    />
-                    <input type="hidden" id="dp_url" name="dp_url"></input>
-                    <label class="custom-file-label" for="dp-input">
-                      Choose Image File
-                    </label>
-                  </div>
-                </div>
-                <div>
-                  <img
-                    id="img-preview-dp"
-                    src="https://icons-for-free.com/iconfiles/png/512/add+create+new+profile+user+icon-1320185001431562707.png"
-                    height="200px"
-                    width="200px"
-                  ></img>
-                </div>
               </div>
 
-              {/* Club Profile */}
-              <div id="club-add-fields">
-                <h5 className="mb-3">Club Membership - Additional Fields</h5>
-                <h6 className="mb-1">Upload Club Logo:</h6>
+              <div className="profile athlete club">
+                <h6 className="mb-1">Upload Profile Picture/ Club Logo:</h6>
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="logo-but">
+                    <span class="input-group-text" id="picture_upload_button">
                       Upload
                     </span>
                   </div>
@@ -137,19 +118,25 @@ class Register extends React.Component {
                     <input
                       type="file"
                       class="custom-file-input"
-                      id="logo-input"
-                      aria-describedby="logo-but"
+                      id="picture-input"
+                      aria-describedby="picture_upload_button"
                     />
-                    <input type="hidden" id="logo_url" name="logo_url"></input>
-                    <label class="custom-file-label" for="logo-input">
+                    <input
+                      type="hidden"
+                      id="picture_url"
+                      name="picture_url"
+                      value={defaultDp}
+                    ></input>
+                    <label class="custom-file-label" for="picture-input">
                       Choose Image File
                     </label>
                   </div>
                 </div>
+                <h6 className="mb-3 mt-3">Preview Image:</h6>
                 <div>
                   <img
-                    id="img-preview-logo"
-                    src="https://cdn4.iconfinder.com/data/icons/adiante-apps-app-templates-incos-in-grey/512/app_type_real_state_512px_GREY.png"
+                    id="picture-preview"
+                    src={defaultPicture}
                     height="200px"
                     width="200px"
                   ></img>
@@ -162,6 +149,7 @@ class Register extends React.Component {
             </form>
 
             <script src="/bs-custom-file-input.js" />
+            <script src="https://js.stripe.com/v3/"></script>
             <script src="/script-register.js"></script>
           </div>
         </div>
