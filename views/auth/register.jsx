@@ -20,47 +20,52 @@ class Register extends React.Component {
             {/* <p className="text-danger">
               <em>{this.props.comments}</em>
             </p> */}
-            <form method="POST" action="/register">
+            <form id="registration-form">
               <input
                 type="text"
-                name="full_name"
+                id="full_name"
                 placeholder="Full Name As Per NRIC OR Club Name"
                 className="form-control"
+                required
               />
               <br></br>
               <input
                 type="text"
-                name="password"
+                id="password"
                 placeholder="Password"
                 className="form-control"
+                required
               />
               <br></br>
               <input
                 type="text"
-                name="email"
+                id="email"
                 placeholder="Email"
                 className="form-control"
+                required
               />
               <br></br>
               <input
                 type="text"
-                name="street_address"
+                id="street_address"
                 placeholder="Street Address"
                 className="form-control"
+                required
               />
               <br></br>
               <input
                 type="text"
-                name="unit"
+                id="unit"
                 placeholder="Unit Number"
                 className="form-control"
               />
               <br></br>
               <input
                 type="text"
-                name="postal_code"
+                id="postal_code"
                 placeholder="Postal Code"
                 className="form-control"
+                required
               />
               <br></br>
               <select
@@ -78,14 +83,14 @@ class Register extends React.Component {
               <br></br>
 
               {/* Profile Fields */}
-              <h5 className="mb-3 profile athlete">
+              <h5 className="mb-3 profile athlete" hidden>
                 Athlete Membership - Profile
               </h5>
 
-              <h5 className="mb-3 profile club">Club Membership - Profile</h5>
+              <h5 className="mb-3 profile club" hidden>Club Membership - Profile</h5>
 
-              <div className="profile athlete">
-                <select name="gender" className="custom-select">
+              <div className="profile athlete" hidden>
+                <select id="gender" className="custom-select compulsory">
                   <option value="" disabled selected>
                     Select Gender
                   </option>
@@ -96,17 +101,47 @@ class Register extends React.Component {
                 <br></br>
               </div>
 
-              <div className="profile athlete">
+              <div className="profile athlete" hidden>
                 <h6 className="mb-1">Date Of Birth:</h6>
                 <input
                   type="date"
-                  className="form-control date_input"
-                  name="date_of_birth"
+                  className="form-control date_input compulsory"
+                  id="date_of_birth"
                 ></input>
                 <br></br>
               </div>
 
-              <div className="profile athlete club">
+              <div className="profile club" hidden>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="club_website_url"
+                  placeholder="Website URL"
+                ></input>
+                <br></br>
+              </div>
+
+              <div className="profile club" hidden>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="club_ig_url"
+                  placeholder="Instagram URL"
+                ></input>
+                <br></br>
+              </div>
+
+              <div className="profile club" hidden>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="club_facebook_url"
+                  placeholder="Facebook URL"
+                ></input>
+                <br></br>
+              </div>
+
+              <div className="profile athlete club" hidden>
                 <h6 className="mb-1">Upload Profile Picture/ Club Logo:</h6>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -125,7 +160,7 @@ class Register extends React.Component {
                       type="hidden"
                       id="picture_url"
                       name="picture_url"
-                      value={defaultDp}
+                      value={defaultPicture}
                     ></input>
                     <label class="custom-file-label" for="picture-input">
                       Choose Image File
@@ -144,7 +179,13 @@ class Register extends React.Component {
               </div>
 
               <br></br>
-              <input className="btn btn-primary" type="submit" value="Submit" />
+              <button
+                id="submit-and-pay-button"
+                className="btn btn-primary"
+                type="submit"
+              >
+                Submit All Fields And Proceed To Payment
+              </button>
               <br></br>
             </form>
 
