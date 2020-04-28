@@ -187,6 +187,7 @@ class Register extends React.Component {
                 Submit And Pay
               </button>
               <br></br>
+              <br></br>
             </form>
 
             <script src="/bs-custom-file-input.js" />

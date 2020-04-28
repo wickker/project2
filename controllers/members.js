@@ -153,6 +153,32 @@ module.exports = (db) => {
     db.members.printName(cbDisplay, memberId);
   }
 
+  let showEditMemberForm = (request, response) => {
+    let memberId = request.params.id; 
+    let cbSendDataToForm = (result) => {
+      console.log(result);
+      let data = {
+        memberData: result
+      }
+      response.render("./members/edit-member", data);
+    }
+    db.members.printName(cbSendDataToForm, memberId);
+  }
+
+  let submitEditedMember = (request, response) => {
+    console.log(request.body);
+    let name = request.body.full_name;
+    let pw = request.body.password;
+    let email = request.body.email;
+    let unit = request.body.unit;
+    let postcode = request.body.postal_code;
+    let address = request.body.address;
+    let memberId = parseInt(request.body.member_id);
+    db.members.updateMember(memberId, name, pw, email, unit, postcode,address);
+    let link = "/members/" + memberId;
+    response.redirect(link);
+  }
+
   return {
     showHome: showHome,
     showRegistrationForm: showRegistrationForm,
@@ -162,6 +188,8 @@ module.exports = (db) => {
     login: login,
     showDashboard: showDashboard,
     logout: logout,
-    showPersonalParticulars: showPersonalParticulars
+    showPersonalParticulars: showPersonalParticulars,
+    showEditMemberForm: showEditMemberForm,
+    submitEditedMember: submitEditedMember
   };
 };

@@ -95,12 +95,24 @@ module.exports = (pool) => {
     });
   }
 
+  let updateMember = (id, name, pw, email, unit, postcode, address) => {
+    let queryText = `update members set full_name = '${name}', password = '${pw}', email = '${email}', unit = '${unit}', postal_code = ${postcode}, street_address = '${address}' where id = ${id} returning *`;
+    pool.query(queryText, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("edited member:", result.rows[0]);
+      }
+    });
+  }
+
   return {
     registrationForm: registrationForm,
     paymentDetails: paymentDetails,
     writeToMembersAndProfile: writeToMembersAndProfile,
     writePaymentId: writePaymentId,
     verifyLogin: verifyLogin,
-    printName: printName
+    printName: printName,
+    updateMember: updateMember
   };
 };

@@ -26,4 +26,4 @@ insert into profiles (member_type_id, member_id, picture, dateofbirth, gender, c
 
 insert into profiles (member_type_id, member_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (2, 6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSluNmZ8a-nd5FmhZ218KasjRFWDfTC5SZU38SE3WNhSDC0QxRr&s', null, '', 'https://www.primegym.com/', 'https://www.instagram.com/', 'https://www.facebook.com/');
 
-insert into profiles (member_type_id, member_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (2, 6, 'https://thenewageparents.com/wp-content/uploads/2016/06/BazGym-Gymnastics-School-logo.jpg', null, '', 'https://www.bazgym.com/', 'https://www.instagram.com/', 'https://www.facebook.com/');
+insert into profiles (member_type_id, member_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (2, 7, 'https://thenewageparents.com/wp-content/uploads/2016/06/BazGym-Gymnastics-School-logo.jpg', null, '', 'https://www.bazgym.com/', 'https://www.instagram.com/', 'https://www.facebook.com/');
