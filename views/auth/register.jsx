@@ -9,6 +9,21 @@ class Register extends React.Component {
       return <option value={element.id}>{string}</option>;
     });
 
+    let disciplineArr = this.props.disciplineArr;
+    let disciplineArrHtml = disciplineArr.map((element) => {
+      return (
+        <div className="ml-4 form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            name="discipline"
+            value={element.id}
+          />
+          <label>{element.type}</label>
+        </div>
+      );
+    });
+
     let defaultPicture =
       "https://icons-for-free.com/iconfiles/png/512/add+create+new+profile+user+icon-1320185001431562707.png";
 
@@ -83,11 +98,21 @@ class Register extends React.Component {
               <br></br>
 
               {/* Profile Fields */}
-              <h5 className="mb-3 profile athlete" hidden>
+              <h4 className="mb-4 profile athlete" hidden>
                 Athlete Membership - Profile
-              </h5>
+              </h4>
 
-              <h5 className="mb-3 profile club" hidden>Club Membership - Profile</h5>
+              <h4 className="mb-4 profile club" hidden>
+                Club Membership - Profile
+              </h4>
+
+              <div className="profile athlete club" hidden>
+                <h6 className="mb-2">
+                  Select All Affiliated Gymnastics Disciplines:
+                </h6>
+                {disciplineArrHtml}
+                <br></br>
+              </div>
 
               <div className="profile athlete" hidden>
                 <select id="gender" className="custom-select compulsory">

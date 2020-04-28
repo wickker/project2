@@ -9,10 +9,8 @@ module.exports = (db) => {
   //Display the membership registration form
   let showRegistrationForm = (request, response) => {
     let cbRegistrationForm = (result) => {
-      let data = {
-        memberTypeArr: result,
-      };
-      response.render("./auth/register", data);
+      console.log(result);
+      response.render("./auth/register", result);
     };
     db.members.registrationForm(cbRegistrationForm);
   };
@@ -39,6 +37,7 @@ module.exports = (db) => {
     let facebook = request.body.facebook;
     let picture = request.body.picture;
     let joinDate = Date.now();
+    let discArr = request.body.disciplineArr;
     let cbPaymentDetails = async (result) => {
       console.log(result);
       let priceInCents = parseFloat(result.memberTypeDetails.price) * 100;
@@ -80,6 +79,7 @@ module.exports = (db) => {
       ig,
       facebook,
       picture,
+      discArr,
       cbPaymentDetails
     );
   };

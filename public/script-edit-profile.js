@@ -3,9 +3,6 @@ console.log("script edit profile!");
 //To display file name in image upload input field
 bsCustomFileInput.init();
 
-//Stripe
-// var stripe = Stripe("pk_test_pckFflMIjCBNmdMoSjuXBhpA00Gd0QrvhH");
-
 //Cloudinary constants
 const cloudinary_url = "https://api.cloudinary.com/v1_1/dwoimiuph/image/upload";
 const cloudinary_upload_preset = "wh3xm7xt";

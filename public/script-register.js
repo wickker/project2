@@ -105,6 +105,15 @@ let payment = (event) => {
   formObj.facebook = document.getElementById("club_facebook_url").value;
   formObj.ig = document.getElementById("club_ig_url").value;
   formObj.picture = document.getElementById("picture_url").value;
+  formObj.disciplineArr = [];
+  let disciplineArr2 = document.getElementsByClassName("form-check-input");
+  console.log(disciplineArr2);
+  for (let i = 0; i < disciplineArr2.length; i++) {
+    if (disciplineArr2[i].checked) {
+      formObj.disciplineArr.push(parseInt(disciplineArr2[i].value));
+    }
+  }
+  console.log(formObj.disciplineArr);
   request.send(JSON.stringify(formObj));
 };
 

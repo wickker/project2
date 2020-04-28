@@ -1,13 +1,17 @@
 module.exports = (pool) => {
   //Returns member type data to populate registration dropdown list
-  let registrationForm = (cb) => {
+  let registrationForm = async (cb) => {
     let queryText = "select * from member_type";
-    pool.query(queryText, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        cb(result.rows);
-      }
+    let data;
+    await pool.query(queryText).then(async (result) => {
+      data = {
+        memberTypeArr: result.rows,
+      };
+      queryText = "select * from discipline";
+      await pool.query(queryText).then(async (result) => {
+        data.disciplineArr = result.rows;
+        cb(data);
+      });
     });
   };
 
@@ -39,21 +43,28 @@ module.exports = (pool) => {
     ig,
     facebook,
     picture,
+    discArr,
     cb
   ) => {
     let queryText = `insert into members (full_name, password, email, member_type_id, street_address, postal_code, unit, join_date, ispaid) values ('${name}', '${pw}', '${email}', ${memberTypeId}, '${address}', '${postcode}', '${unit}', ${joinDate}, 'false') returning *`;
     await pool.query(queryText).then(async (result) => {
       console.log(result.rows[0]);
       let memberId = result.rows[0].id;
-      queryText = `insert into profile (member_id, member_type_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (${memberId}, ${memberTypeId}, '${picture}', '${dob}', '${gender}', '${website}', '${ig}', '${facebook}') returning *`;
+      queryText = `insert into profiles (member_id, member_type_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (${memberId}, ${memberTypeId}, '${picture}', '${dob}', '${gender}', '${website}', '${ig}', '${facebook}') returning *`;
       await pool.query(queryText).then(async (result) => {
         console.log(result.rows[0]);
         let queryText = `select * from member_type where id = ${memberTypeId}`;
         await pool.query(queryText).then(async (result) => {
-          data = {
+          let data = {
             memberTypeDetails: result.rows[0],
             memberId: memberId,
           };
+          for (let i = 0; i < discArr.length; i++) {
+            queryText = `insert into member_discipline (member_id, discipline_id) values (${memberId}, ${discArr[i]}) returning *`;
+            await pool.query(queryText).then(async (result) => {
+              console.log(result.rows[0]);
+            });
+          }
           cb(data);
         });
       });
@@ -71,7 +82,7 @@ module.exports = (pool) => {
         console.log(result.rows[0]);
       }
     });
-  }
+  };
 
   let verifyLogin = (email, pw, cb) => {
     let queryText = `select * from members where email ='${email}' and password = '${pw}'`;
@@ -82,7 +93,7 @@ module.exports = (pool) => {
         cb(result.rows);
       }
     });
-  }
+  };
 
   let printName = (cb, id) => {
     let queryText = `select * from members where id = ${id}`;
@@ -93,7 +104,7 @@ module.exports = (pool) => {
         cb(result.rows[0]);
       }
     });
-  }
+  };
 
   let updateMember = (id, name, pw, email, unit, postcode, address) => {
     let queryText = `update members set full_name = '${name}', password = '${pw}', email = '${email}', unit = '${unit}', postal_code = ${postcode}, street_address = '${address}' where id = ${id} returning *`;
@@ -104,7 +115,7 @@ module.exports = (pool) => {
         console.log("edited member:", result.rows[0]);
       }
     });
-  }
+  };
 
   return {
     registrationForm: registrationForm,
@@ -113,6 +124,6 @@ module.exports = (pool) => {
     writePaymentId: writePaymentId,
     verifyLogin: verifyLogin,
     printName: printName,
-    updateMember: updateMember
+    updateMember: updateMember,
   };
 };

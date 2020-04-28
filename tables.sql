@@ -35,3 +35,9 @@ create table if not exists profiles (
   club_ig_url text, 
   club_facebook_url text
 );
+
+create table if not exists member_discipline (
+  id serial primary key,
+  member_id integer,
+  discipline_id integer
+);
