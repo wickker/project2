@@ -24,7 +24,7 @@ create table if not exists members (
   ispaid boolean
 );
 
-create table if not exists profile (
+create table if not exists profiles (
   id serial primary key,
   member_type_id integer,
   member_id integer,

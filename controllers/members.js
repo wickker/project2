@@ -27,7 +27,7 @@ module.exports = (db) => {
     console.log(request.body);
     let memberTypeId = parseInt(request.body.memberTypeId);
     let fullName = request.body.fullName;
-    let password = sha256(request.body.password);
+    let password = request.body.password;
     let email = request.body.email;
     let address = request.body.address;
     let unit = request.body.unit;
@@ -100,7 +100,7 @@ module.exports = (db) => {
   let login = (request, response) => {
     console.log(request.body);
     let email = request.body.email;
-    let password = sha256(request.body.password);
+    let password = request.body.password;
     let cbVerifyLogin = (result) => {
       if (result.length > 0) {
         let memberId = result[0].id;
@@ -141,6 +141,18 @@ module.exports = (db) => {
     response.render("./auth/logout", obj);
   }
 
+  let showPersonalParticulars = (request, response) => {
+    let memberId = request.params.id;
+    let cbDisplay = (result) => {
+      console.log(result);
+      let data = {
+        personalData: result
+      };
+      response.render("./members/show-one-member", data);
+    }
+    db.members.printName(cbDisplay, memberId);
+  }
+
   return {
     showHome: showHome,
     showRegistrationForm: showRegistrationForm,
@@ -149,6 +161,7 @@ module.exports = (db) => {
     showSuccess: showSuccess,
     login: login,
     showDashboard: showDashboard,
-    logout: logout
+    logout: logout,
+    showPersonalParticulars: showPersonalParticulars
   };
 };
