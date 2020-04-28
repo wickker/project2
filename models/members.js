@@ -24,7 +24,7 @@ module.exports = (pool) => {
   };
 
   //Write registration form data to 'members' and 'profile' table
-  let writeToMembersAndProfile = (
+  let writeToMembersAndProfile = async (
     name,
     pw,
     email,
@@ -38,31 +38,45 @@ module.exports = (pool) => {
     website,
     ig,
     facebook,
-    picture
+    picture,
+    cb
   ) => {
-    let queryText = `insert into members (full_name, password, email, member_type_id, street_address, postal_code, unit, join_date, ispayment) values ('${name}', '${pw}', '${email}', ${memberTypeId}, '${address}', '${postcode}', '${unit}', ${joinDate}, 'false') returning *`;
+    let queryText = `insert into members (full_name, password, email, member_type_id, street_address, postal_code, unit, join_date, ispaid) values ('${name}', '${pw}', '${email}', ${memberTypeId}, '${address}', '${postcode}', '${unit}', ${joinDate}, 'false') returning *`;
+    await pool.query(queryText).then(async (result) => {
+      console.log(result.rows[0]);
+      let memberId = result.rows[0].id;
+      queryText = `insert into profile (member_id, member_type_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (${memberId}, ${memberTypeId}, '${picture}', '${dob}', '${gender}', '${website}', '${ig}', '${facebook}') returning *`;
+      await pool.query(queryText).then(async (result) => {
+        console.log(result.rows[0]);
+        let queryText = `select * from member_type where id = ${memberTypeId}`;
+        await pool.query(queryText).then(async (result) => {
+          data = {
+            memberTypeDetails: result.rows[0],
+            memberId: memberId,
+          };
+          cb(data);
+        });
+      });
+    });
+  };
+
+  let writePaymentId = (sessionId, memberId) => {
+    let queryText = `update members set payment_session_id = '${sessionId}', ispaid = 'true' where id = ${memberId} returning *`;
+    console.log(queryText);
     pool.query(queryText, (err, result) => {
       if (err) {
         console.log(err);
       } else {
         console.log(result.rows[0]);
-        let memberId = result.rows[0].id;
-        queryText = `insert into profile (member_id, member_type_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (${memberId}, ${memberTypeId}, '${picture}', '${dob}', '${gender}', '${website}', '${ig}', '${facebook}') returning *`;
-        pool.query(queryText, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(result.rows[0]);
-          }
-        });
       }
     });
-  };
+
+  }
 
   return {
     registrationForm: registrationForm,
     paymentDetails: paymentDetails,
     writeToMembersAndProfile: writeToMembersAndProfile,
-    paymentDone: paymentDone
+    writePaymentId: writePaymentId
   };
 };

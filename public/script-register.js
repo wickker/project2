@@ -72,7 +72,6 @@ let showRelevantProfile = (event) => {
 };
 
 let payment = (event) => {
-  console.log("running");
   event.preventDefault();
   function responseHandler() {
     let responseObject = JSON.parse(this.responseText);

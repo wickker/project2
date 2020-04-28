@@ -5,6 +5,11 @@ create table if not exists member_type (
   validity bigint
 );
 
+create table if not exists discipline (
+  id serial primary key,
+  type text
+);
+
 create table if not exists members (
   id serial primary key,
   full_name text,
@@ -15,12 +20,8 @@ create table if not exists members (
   street_address text,
   unit text,
   join_date bigint,
-  ispayment boolean
-);
-
-create table if not exists discipline (
-  id serial primary key,
-  type text
+  payment_session_id text,
+  ispaid boolean
 );
 
 create table if not exists profile (

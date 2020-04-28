@@ -20,7 +20,7 @@ module.exports = (db) => {
     response.send(request.body);
   };
 
-  let makePayment = (request, response) => {
+  let makePaymentAndSubmitRegistration = (request, response) => {
     console.log(request.body);
     let memberTypeId = parseInt(request.body.memberTypeId);
     let fullName = request.body.fullName;
@@ -36,6 +36,33 @@ module.exports = (db) => {
     let facebook = request.body.facebook;
     let picture = request.body.picture;
     let joinDate = Date.now();
+
+    let cbPaymentDetails = async (result) => {
+      console.log(result);
+      let priceInCents = parseFloat(result.memberTypeDetails.price) * 100;
+      let nameString = result.memberTypeDetails.type + " Membership";
+      let successUrl =
+        "http://127.0.0.1:3000/success?session_id={CHECKOUT_SESSION_ID}---" +
+        result.memberId;
+      try {
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ["card"],
+          line_items: [
+            {
+              name: nameString,
+              amount: priceInCents,
+              currency: "sgd",
+              quantity: 1,
+            },
+          ],
+          success_url: successUrl,
+          cancel_url: "http://127.0.0.1:3000/register",
+        });
+        response.send(session);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     db.members.writeToMembersAndProfile(
       fullName,
       password,
@@ -50,68 +77,20 @@ module.exports = (db) => {
       website,
       ig,
       facebook,
-      picture
+      picture,
+      cbPaymentDetails
     );
-    let cbPaymentDetails = async (result) => {
-      let priceInCents = parseFloat(result.price) * 100;
-      let nameString = result.type + " Membership";
-      try {
-        const session = await stripe.checkout.sessions.create({
-          payment_method_types: ["card"],
-          line_items: [
-            {
-              name: nameString,
-              amount: priceInCents,
-              currency: "sgd",
-              quantity: 1,
-            },
-          ],
-          success_url:
-            "http://127.0.0.1:3000/success?session_id={CHECKOUT_SESSION_ID}",
-          cancel_url: "http://127.0.0.1:3000/register",
-        });
-        response.send(session);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    db.members.paymentDetails(memberTypeId, cbPaymentDetails);
   };
 
-  // let submitRegistrationForm = (request, response) => {
-    // let fullName = request.body.full_name;
-    // let password = sha256(request.body.password);
-    // let email = request.body.email;
-    // let address = request.body.street_address;
-    // let unit = request.body.unit;
-    // let postalCode = request.body.postal_code;
-    // let memberTypeId = parseInt(request.body.membership_type_id);
-    // let gender = request.body.gender;
-    // let dob = Date.parse(request.body.date_of_birth);
-    // let website = request.body.club_website_url;
-    // let ig = request.body.club_ig_url;
-    // let facebook = request.body.club_facebook_url;
-    // let picture = request.body.picture_url;
-    // let joinDate = Date.now();
-    // db.members.writeToMembersAndProfile(
-    //   fullName,
-    //   password,
-    //   email,
-    //   address,
-    //   unit,
-    //   postalCode,
-    //   memberTypeId,
-    //   joinDate,
-    //   gender,
-    //   dob,
-    //   website,
-    //   ig,
-    //   facebook,
-    //   picture
-    // );
-  // };
-
   let showSuccess = (request, response) => {
+    console.log(request.query.session_id);
+    let sessionId = request.query.session_id;
+    let splitString = sessionId.split("---");
+    sessionId = splitString[0];
+    console.log("session id: ", sessionId);
+    let memberId = parseInt(splitString[1]);
+    console.log("member id: ", memberId); 
+    db.members.writePaymentId(sessionId, memberId);
     response.render("./auth/success");
   };
 
@@ -119,9 +98,7 @@ module.exports = (db) => {
     showHome: showHome,
     showRegistrationForm: showRegistrationForm,
     showProfile: showProfile,
-    // submitRegistrationForm: submitRegistrationForm,
-    makePayment: makePayment,
+    makePaymentAndSubmitRegistration: makePaymentAndSubmitRegistration,
     showSuccess: showSuccess,
-    
   };
 };
