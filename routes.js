@@ -20,4 +20,6 @@ module.exports = (app, allModels) => {
   app.get("/members", membersController.showDashboard);
 
   app.get("/members/:id", membersController.showPersonalParticulars);
+
+  app.get("/profiles/:id", profilesController.showProfile);
 };
