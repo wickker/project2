@@ -11,10 +11,9 @@ class ShowOneProfile extends React.Component {
 
     if (profile.member_type_id === 1) {
       memberType = "Athlete";
-      let DOB = new Date(parseInt(profile.dateofbirth)).toLocaleDateString();
       info = (
         <div>
-          <h5>Date of Birth: {DOB}</h5>
+          <h5>Date of Birth: {profile.dateofbirth}</h5>
           <h5>Gender: {profile.gender}</h5>
         </div>
       );
@@ -35,7 +34,10 @@ class ShowOneProfile extends React.Component {
           <div className="col mt-4">
             <h3 className="mb-4">My {memberType} Profile</h3>
             <h5>Name: {profile.full_name}</h5>
+            <br></br>
             <a href={pictureLink}><img src={profile.picture} height="250px" width="250px"></img></a>
+            <br></br>
+            <br></br>
             {info}
           </div>
         </div>

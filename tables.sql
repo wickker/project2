@@ -29,7 +29,7 @@ create table if not exists profiles (
   member_type_id integer,
   member_id integer,
   picture text,
-  dateofbirth bigint,
+  dateofbirth text,
   gender text,
   club_website_url text,
   club_ig_url text, 

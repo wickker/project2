@@ -33,7 +33,7 @@ module.exports = (db) => {
     let unit = request.body.unit;
     let postalCode = request.body.postalcode;
     let gender = request.body.gender;
-    let dob = Date.parse(request.body.dob);
+    let dob = request.body.dob;
     let website = request.body.website;
     let ig = request.body.ig;
     let facebook = request.body.facebook;
