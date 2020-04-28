@@ -35,12 +35,12 @@ pool.on('error', function (err) {
 
 //Require model files
 const allMembersModelsFunction = require('./models/members');
-const allAthletesModelsFunction = require('./models/athletes');
-const allClubsModelsFunction = require('./models/clubs');
+const allProfilesModelsFunction = require('./models/profiles');
+
 
 const membersModelsObject = allMembersModelsFunction( pool );
-const athletesModelsObject = allAthletesModelsFunction( pool );
-const clubsModelsObject = allClubsModelsFunction( pool );
+const profilesModelsObject = allProfilesModelsFunction( pool );
+
 
 
 //Module exports
@@ -55,6 +55,5 @@ module.exports = {
   pool:pool,
 
   members: membersModelsObject,
-  athletes: athletesModelsObject,
-  clubs: clubsModelsObject
+  profiles: profilesModelsObject
 };

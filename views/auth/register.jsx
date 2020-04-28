@@ -184,7 +184,7 @@ class Register extends React.Component {
                 className="btn btn-primary"
                 type="submit"
               >
-                Submit All Fields And Proceed To Payment
+                Submit And Pay
               </button>
               <br></br>
             </form>

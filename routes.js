@@ -1,11 +1,11 @@
 module.exports = (app, allModels) => {
   //Require the controller
   const membersController = require("./controllers/members")(allModels);
-  const athletesController = require("./controllers/athletes")(allModels);
-  const clubsController = require("./controllers/clubs")(allModels);
-
+  const profilesController = require("./controllers/profiles")(allModels);
 
   app.get("/", membersController.showHome);
+
+  app.post("/", membersController.login);
 
   app.get("/register", membersController.showRegistrationForm);
 

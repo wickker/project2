@@ -6,6 +6,7 @@ module.exports = (db) => {
     response.render("home");
   };
 
+  //Display the membership registration form 
   let showRegistrationForm = (request, response) => {
     let cbRegistrationForm = (result) => {
       let data = {
@@ -16,10 +17,12 @@ module.exports = (db) => {
     db.members.registrationForm(cbRegistrationForm);
   };
 
+  //Show the appropriate additional profile fields depending on the membership type selected
   let showProfile = (request, response) => {
     response.send(request.body);
   };
 
+  //Write personal particulars and profile submission to tables, create stripe payment session send response
   let makePaymentAndSubmitRegistration = (request, response) => {
     console.log(request.body);
     let memberTypeId = parseInt(request.body.memberTypeId);
@@ -36,7 +39,6 @@ module.exports = (db) => {
     let facebook = request.body.facebook;
     let picture = request.body.picture;
     let joinDate = Date.now();
-
     let cbPaymentDetails = async (result) => {
       console.log(result);
       let priceInCents = parseFloat(result.memberTypeDetails.price) * 100;
@@ -82,6 +84,7 @@ module.exports = (db) => {
     );
   };
 
+  //Display payment success page and trigger update of payment_session_id and payment status to members table
   let showSuccess = (request, response) => {
     console.log(request.query.session_id);
     let sessionId = request.query.session_id;
@@ -94,11 +97,16 @@ module.exports = (db) => {
     response.render("./auth/success");
   };
 
+  let login = (request, response) => {
+
+  }
+
   return {
     showHome: showHome,
     showRegistrationForm: showRegistrationForm,
     showProfile: showProfile,
     makePaymentAndSubmitRegistration: makePaymentAndSubmitRegistration,
     showSuccess: showSuccess,
+    login: login
   };
 };

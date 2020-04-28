@@ -60,6 +60,7 @@ module.exports = (pool) => {
     });
   };
 
+  //Update payment_session_id and payment status to members table upon successful completion of payment
   let writePaymentId = (sessionId, memberId) => {
     let queryText = `update members set payment_session_id = '${sessionId}', ispaid = 'true' where id = ${memberId} returning *`;
     console.log(queryText);
@@ -70,7 +71,6 @@ module.exports = (pool) => {
         console.log(result.rows[0]);
       }
     });
-
   }
 
   return {
