@@ -1,19 +1,19 @@
 var React = require("react");
 var Main = require("../MAIN");
 
-class Home extends React.Component {
+class LoginDashboard extends React.Component {
   render() {
-    const Home = (
+    const LoginDashboard = (
       <div className="container">
         <div className="row">
           <div className="col mt-4">
-            <h3><em>Public View</em></h3>
+            <h3>Hello, {this.props.name}!</h3>
           </div>
         </div>
       </div>
     );
-    return <Main children={Home} />;
+    return <Main children={LoginDashboard} />;
   }
 }
 
-module.exports = Home;
+module.exports = LoginDashboard;

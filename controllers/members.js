@@ -6,7 +6,7 @@ module.exports = (db) => {
     response.render("home");
   };
 
-  //Display the membership registration form 
+  //Display the membership registration form
   let showRegistrationForm = (request, response) => {
     let cbRegistrationForm = (result) => {
       let data = {
@@ -92,13 +92,53 @@ module.exports = (db) => {
     sessionId = splitString[0];
     console.log("session id: ", sessionId);
     let memberId = parseInt(splitString[1]);
-    console.log("member id: ", memberId); 
+    console.log("member id: ", memberId);
     db.members.writePaymentId(sessionId, memberId);
     response.render("./auth/success");
   };
 
   let login = (request, response) => {
+    console.log(request.body);
+    let email = request.body.email;
+    let password = sha256(request.body.password);
+    let cbVerifyLogin = (result) => {
+      if (result.length > 0) {
+        let memberId = result[0].id;
+        let memberName = result[0].full_name;
+        response.cookie("memberid", memberId);
+        response.cookie("loggedin", sha256("true"));
+        let obj = {
+          name: memberName
+        };
+        response.render("./auth/login-dashboard", obj);
+      } else {
+        let obj = {
+          comments: "User not found. Please try again.",
+        };
+        response.render("home", obj);
+      }
+    };
+    db.members.verifyLogin(email, password, cbVerifyLogin);
+  };
 
+  let showDashboard = (request, response) => {
+    let memberId = parseInt(request.cookies.memberid);
+    let cbPrintName = (result) => {
+      let obj = {
+        name: result.full_name
+      };
+      response.render("./auth/login-dashboard", obj);
+    }
+    db.members.printName(cbPrintName, memberId);
+  }
+
+  let logout = (request, response) => {
+    let obj = {
+      comments: "Logout success!",
+    };
+    response.clearCookie("memberid");
+    response.clearCookie("loggedin");
+    response.render("./auth/logout", obj);
   }
 
   return {
@@ -107,6 +147,8 @@ module.exports = (db) => {
     showProfile: showProfile,
     makePaymentAndSubmitRegistration: makePaymentAndSubmitRegistration,
     showSuccess: showSuccess,
-    login: login
+    login: login,
+    showDashboard: showDashboard,
+    logout: logout
   };
 };

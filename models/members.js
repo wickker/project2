@@ -73,10 +73,34 @@ module.exports = (pool) => {
     });
   }
 
+  let verifyLogin = (email, pw, cb) => {
+    let queryText = `select * from members where email ='${email}' and password = '${pw}'`;
+    pool.query(queryText, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        cb(result.rows);
+      }
+    });
+  }
+
+  let printName = (cb, id) => {
+    let queryText = `select * from members where id = ${id}`;
+    pool.query(queryText, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        cb(result.rows[0]);
+      }
+    });
+  }
+
   return {
     registrationForm: registrationForm,
     paymentDetails: paymentDetails,
     writeToMembersAndProfile: writeToMembersAndProfile,
-    writePaymentId: writePaymentId
+    writePaymentId: writePaymentId,
+    verifyLogin: verifyLogin,
+    printName: printName
   };
 };

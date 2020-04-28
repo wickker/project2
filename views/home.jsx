@@ -8,24 +8,19 @@ class Home extends React.Component {
         <div className="row">
           <div className="col mt-4">
             <h3 className="mb-4">Public Homepage</h3>
-            {/* <p className="text-danger">
-              <em>{this.props.comments}</em>
-              <br></br>
-            </p> */}
             <div className="row">
               <div className="col-6">
                 <h5 className="mb-3">NEW MEMBERSHIP:</h5>
                 <a href="/register" className="btn btn-info">
                   Register Here!
                 </a>
-                {/* <br></br>
-                <br></br>
-                <br></br>
-                <br></br> */}
               </div>
               <div className="col-6">
                 <form method="POST" action="/">
                   <h5 className="mb-3">EXISTING MEMBERS:</h5>
+                  <p className="text-danger">
+                    <em>{this.props.comments}</em>
+                  </p>
                   <input
                     type="text"
                     name="email"
@@ -53,7 +48,7 @@ class Home extends React.Component {
             </div>
             <div className="row">
               <div className="col mt-4">
-              <h3 className="mb-4">Welcome To Membership DB!</h3>
+                <h3 className="mb-4">Welcome To Membership DB!</h3>
               </div>
             </div>
           </div>
