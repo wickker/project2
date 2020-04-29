@@ -4,10 +4,7 @@ module.exports = (db) => {
     let memberId = parseInt(request.params.id); 
     let cbGetData = (result) => {
       console.log(result);
-      let data = {
-        profile: result
-      }
-      response.render("./profiles/show-one-profile", data)
+      response.render("./profiles/show-one-profile", result)
     };
     db.profiles.getData(memberId, cbGetData);
   };
