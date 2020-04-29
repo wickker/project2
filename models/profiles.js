@@ -109,11 +109,31 @@ module.exports = (pool) => {
     });
   };
 
+  let getAthleteData = async (cb) => {
+    let queryText = `select profiles.member_id, profiles.member_type_id, profiles.picture, profiles.dateofbirth, profiles.gender, members.full_name from profiles join members on (members.id = profiles.member_id) where profiles.member_type_id = 1 order by members.full_name asc`;
+    await pool.query(queryText).then(async (result) => {
+      let data = {};
+      data.athArr = result.rows;
+      for (let i = 0; i < data.athArr.length; i++) {
+        queryText = `select member_discipline.member_id, member_discipline.discipline_id, discipline.type from member_discipline join discipline on (member_discipline.discipline_id = discipline.id) where member_discipline.member_id = ${data.athArr[i].member_id}`;
+        await pool.query(queryText).then(async (result) => {
+          data.athArr[i].discArr = result.rows;
+          queryText = `select club_athlete.club_member_id, club_athlete.athlete_member_id, members.full_name from club_athlete join members on (members.id = club_athlete.club_member_id) where club_athlete.athlete_member_id = ${data.athArr[i].member_id}`;
+          await pool.query(queryText).then(async (result) => {
+            data.athArr[i].clubArr = result.rows;
+          });
+        });
+      }
+      cb(data);
+    });
+  };
+
   return {
     getData: getData,
     writeAthleteProfileAndClubAthletes: writeAthleteProfileAndClubAthletes,
     writeClubProfile: writeClubProfile,
     writeDisciplines: writeDisciplines,
     getClubData: getClubData,
+    getAthleteData: getAthleteData
   };
 };

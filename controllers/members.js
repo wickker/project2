@@ -107,6 +107,9 @@ module.exports = (db) => {
       if (result.length > 0) {
         let memberId = result[0].id;
         let memberName = result[0].full_name;
+        if (memberName === "Admin") {
+          response.cookie("admin", sha256("true"));
+        }
         response.cookie("memberid", memberId);
         response.cookie("loggedin", sha256("true"));
         let obj = {
@@ -140,6 +143,7 @@ module.exports = (db) => {
     };
     response.clearCookie("memberid");
     response.clearCookie("loggedin");
+    response.clearCookie("admin");
     response.render("./auth/logout", obj);
   }
 

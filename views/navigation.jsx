@@ -5,7 +5,7 @@ class Nav extends React.Component {
     return (
       <nav class="navbar navbar-expand navbar-light bg-light">
         <div className="container pl-3 pr-3">
-          <a class="navbar-brand">SPORT MANAGEMENT DB</a>
+          <a class="navbar-brand">GYMNASTICS DB</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -20,22 +20,49 @@ class Nav extends React.Component {
           <div class="collapse navbar-collapse" id="navbarsExample02">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="">
-                  Test1
+                <a class="nav-link var whenpublic" href="/">
+                  Login
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="">
-                  Test2
+                <a
+                  class="nav-link var whenpublic whenmember whenadmin"
+                  href="/profiles/clubs"
+                >
+                  Find A Club
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="">
-                  Test3
+                <a
+                  class="nav-link var whenpublic whenmember whenadmin"
+                  href="https://www.gymnastics.sport/site/"
+                  target="_blank"
+                >
+                  Disciplines
+                </a>
+              </li>
+              <li class="nav-item var whenmember">
+                <a class="nav-link" href="/members">
+                  My Dashboard
+                </a>
+              </li>
+              <li class="nav-item var whenmember">
+                <a class="nav-link" href="" id="mybio">
+                  My Biodata
+                </a>
+              </li>
+              <li class="nav-item var whenmember">
+                <a class="nav-link" href="" id="myprofile">
+                  My Membership Profile
+                </a>
+              </li>
+              <li class="nav-item var whenadmin">
+                <a class="nav-link" href="/profiles/athletes" id="myprofile">
+                  Find An Athlete
                 </a>
               </li>
 
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown var whenmember">
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -44,28 +71,28 @@ class Nav extends React.Component {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Add
+                  Edit
                 </a>
                 <div
                   class="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <a class="dropdown-item" href="">
-                    Test4
+                  <a class="dropdown-item" href="" id="editbio">
+                    Biodata
                   </a>
-                  <a class="dropdown-item" href="">
-                    Test5
+                  <a class="dropdown-item" href="" id="editprofile">
+                    Membership Profile
                   </a>
                 </div>
               </li>
-              <li class="nav-item">
+              <li class="nav-item var whenmember whenadmin">
                 <a class="nav-link" href="/logout">
                   Logout
                 </a>
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-              <p class="my-2 my-sm-0">Sample</p>
+              <p id="admin-mode-text" class="my-2 my-sm-0"></p>
             </form>
           </div>
           <script></script>

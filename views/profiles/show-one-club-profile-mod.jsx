@@ -43,7 +43,7 @@ class ShowAllClubsMod extends React.Component {
       athHtml = club.athArr.map((element) => {
         let link = "/profiles/" + element.athlete_member_id;
         return (
-          <span>
+          <span className="mr-3">
             <a href={link}>{element.full_name}</a>
           </span>
         );
@@ -54,7 +54,7 @@ class ShowAllClubsMod extends React.Component {
     return (
       <div class="card">
         <a href={club.club_website_url} target="_blank">
-          <img class="card-img-top" src={club.picture} alt="club logo" height="300px"/>
+          <img class="card-img-top" src={club.picture} alt="club logo" height="350px"/>
         </a>
         <div class="card-body text-center">
           <h4 class="card-title">

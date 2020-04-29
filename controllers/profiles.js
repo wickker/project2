@@ -46,10 +46,19 @@ module.exports = (db) => {
     db.profiles.getClubData(cbGetClubData);
   }
 
+  let showAllAthleteProfiles = (request, response) => {
+    let cbGetAthleteData = (result) => {
+      console.log(result);
+      response.render("./profiles/show-all-athlete-profiles", result);
+    }
+    db.profiles.getAthleteData(cbGetAthleteData);
+  }
+
   return {
     showProfile: showProfile,
     showEditProfileForm: showEditProfileForm,
     submitProfileEdits: submitProfileEdits,
-    showAllClubProfiles: showAllClubProfiles
+    showAllClubProfiles: showAllClubProfiles,
+    showAllAthleteProfiles: showAllAthleteProfiles
   };
 };

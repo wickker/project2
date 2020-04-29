@@ -27,6 +27,8 @@ module.exports = (app, allModels) => {
 
   app.get("/profiles/clubs", profilesController.showAllClubProfiles);
 
+  app.get("/profiles/athletes", profilesController.showAllAthleteProfiles);
+
   app.get("/profiles/:id/edit", profilesController.showEditProfileForm);
 
   app.post("/profiles/:id/edit", profilesController.submitProfileEdits);

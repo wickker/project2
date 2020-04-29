@@ -1,6 +1,6 @@
 var React = require("react");
 var Main = require("../MAIN");
-var ShowAllClubsMod = require("./show-one-club-profile-mod")
+var ShowAllClubsMod = require("./show-one-club-profile-mod");
 
 class ShowAllClubProfiles extends React.Component {
   render() {

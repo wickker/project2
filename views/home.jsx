@@ -48,7 +48,7 @@ class Home extends React.Component {
             </div>
             <div className="row">
               <div className="col mt-4">
-                <h3 className="mb-4">Welcome To Membership DB!</h3>
+                <h3 className="mb-4">Welcome To Gymnastics DB!</h3>
               </div>
             </div>
           </div>
