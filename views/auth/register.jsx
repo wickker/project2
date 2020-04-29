@@ -108,7 +108,7 @@ class Register extends React.Component {
 
               <div className="profile athlete club" hidden>
                 <h6 className="mb-2">
-                  Select All Affiliated Gymnastics Disciplines:
+                  Select Affiliated Gymnastics Disciplines:
                 </h6>
                 {disciplineArrHtml}
                 <br></br>

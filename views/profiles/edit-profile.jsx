@@ -6,7 +6,31 @@ class EditProfile extends React.Component {
     let defaultPicture =
       "https://icons-for-free.com/iconfiles/png/512/add+create+new+profile+user+icon-1320185001431562707.png";
 
+    // console.log(this.props);
     let profile = this.props.profile;
+    let discArr = this.props.disciplineArr;
+    let discArrOg = this.props.disciplineArrOg;
+
+    let discArrHtml = discArrOg.map((element) => {
+      let isChecked = false;
+      for (let i = 0; i < discArr.length; i++) {
+        if (discArr[i].discipline_id === element.id) {
+          isChecked = true;
+        }
+      }
+      return (
+        <div className="ml-4 form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            name="discipline"
+            value={element.id}
+            checked={isChecked}
+          />
+          <label>{element.type}</label>
+        </div>
+      );
+    });
 
     let profileType;
     let fields;
@@ -127,6 +151,9 @@ class EditProfile extends React.Component {
                 name="membertypeid"
                 value={profile.member_type_id}
               ></input>
+              <h6>Select Affiliated Gymnastics Disciplines:</h6>
+              {discArrHtml}
+              <br></br>
 
               {fields}
 
