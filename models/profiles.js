@@ -45,14 +45,23 @@ module.exports = (pool) => {
     });
   };
 
-  let writeAthleteProfileAndClubAthletes = async (memberId, gender, dob, picture, discArr, response, link, clubsArr) => {
+  let writeAthleteProfileAndClubAthletes = async (
+    memberId,
+    gender,
+    dob,
+    picture,
+    discArr,
+    response,
+    link,
+    clubsArr
+  ) => {
     let queryText = `update profiles set gender = '${gender}', dateofbirth = '${dob}', picture = '${picture}' where member_id = ${memberId} returning *`;
     await pool.query(queryText).then(async (result) => {
       console.log(result.rows[0]);
       queryText = `delete from club_athlete where athlete_member_id = ${memberId} returning *`;
       await pool.query(queryText).then(async (result) => {
         if (clubsArr) {
-          for (let i=0; i<clubsArr.length; i++) {
+          for (let i = 0; i < clubsArr.length; i++) {
             queryText = `insert into club_athlete (club_member_id, athlete_member_id) values (${clubsArr[i]}, ${memberId}) returning *`;
             await pool.query(queryText).then(async (result) => {
               console.log(result.rows);
@@ -64,11 +73,39 @@ module.exports = (pool) => {
     });
   };
 
-  let writeClubProfile = async (memberId, website, ig, fb, picture, discArr, response, link) => {
+  let writeClubProfile = async (
+    memberId,
+    website,
+    ig,
+    fb,
+    picture,
+    discArr,
+    response,
+    link
+  ) => {
     let queryText = `update profiles set club_website_url = '${website}', club_ig_url = '${ig}', club_facebook_url = '${fb}', picture = '${picture}' where member_id = ${memberId} returning *`;
     await pool.query(queryText).then(async (result) => {
       console.log(result.rows[0]);
       writeDisciplines(discArr, memberId, response, link);
+    });
+  };
+
+  let getClubData = async (cb) => {
+    let queryText = `select profiles.member_id, profiles.member_type_id, profiles.picture, profiles.club_website_url, profiles.club_ig_url, profiles.club_facebook_url, members.full_name from profiles join members on (members.id = profiles.member_id) where profiles.member_type_id = 2 order by members.full_name asc`;
+    await pool.query(queryText).then(async (result) => {
+      let data = {};
+      data.clubsArr = result.rows;
+      for (let i = 0; i < data.clubsArr.length; i++) {
+        queryText = `select member_discipline.member_id, member_discipline.discipline_id, discipline.type from member_discipline join discipline on (member_discipline.discipline_id = discipline.id) where member_discipline.member_id = ${data.clubsArr[i].member_id}`;
+        await pool.query(queryText).then(async (result) => {
+          data.clubsArr[i].discArr = result.rows;
+          queryText = `select club_athlete.club_member_id, club_athlete.athlete_member_id, members.full_name from club_athlete join members on (members.id = club_athlete.athlete_member_id) where club_athlete.club_member_id = ${data.clubsArr[i].member_id}`;
+          await pool.query(queryText).then(async (result) => {
+            data.clubsArr[i].athArr = result.rows;
+          });
+        });
+      }
+      cb(data);
     });
   };
 
@@ -77,5 +114,6 @@ module.exports = (pool) => {
     writeAthleteProfileAndClubAthletes: writeAthleteProfileAndClubAthletes,
     writeClubProfile: writeClubProfile,
     writeDisciplines: writeDisciplines,
+    getClubData: getClubData,
   };
 };

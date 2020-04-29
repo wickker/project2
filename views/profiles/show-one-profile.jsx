@@ -57,7 +57,7 @@ class ShowOneProfile extends React.Component {
             </li>
           );
         });
-        clubAthText = "Affiliated Clubs";
+        clubAthText = "Affiliated Clubs:";
       } else {
         clubAthText = "";
         clubsOrAthArrHtml = "";
@@ -83,13 +83,17 @@ class ShowOneProfile extends React.Component {
             </li>
           );
         });
-        clubAthText = "Affiliated Athletes";
+        clubAthText = "Affiliated Athletes:";
       } else {
         clubAthText = "";
         clubsOrAthArrHtml = "";
       }
       info = (
         <div>
+          <h5>Number Of Athletes: {clubsOrAthArr.length}</h5>
+          <br></br>
+          <h5>{clubAthText}</h5>
+          <ul>{clubsOrAthArrHtml}</ul>
           <br></br>
           <a href={profile.club_ig_url} className="mr-3">
             <img
@@ -105,10 +109,6 @@ class ShowOneProfile extends React.Component {
               width="50px"
             ></img>
           </a>
-          <br></br>
-          <br></br>
-          <h5>{clubAthText}</h5>
-          <ul>{clubsOrAthArrHtml}</ul>
         </div>
       );
     }

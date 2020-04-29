@@ -38,9 +38,18 @@ module.exports = (db) => {
     }
   };
 
+  let showAllClubProfiles = (request, response) => {
+    let cbGetClubData = (result) => {
+      console.log(result);
+      response.render("./profiles/show-all-club-profiles", result);
+    }
+    db.profiles.getClubData(cbGetClubData);
+  }
+
   return {
     showProfile: showProfile,
     showEditProfileForm: showEditProfileForm,
     submitProfileEdits: submitProfileEdits,
+    showAllClubProfiles: showAllClubProfiles
   };
 };
