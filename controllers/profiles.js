@@ -23,11 +23,12 @@ module.exports = (db) => {
     let memberTypeId = parseInt(request.body.membertypeid);
     let link = "/profiles/" + memberId;
     let discArr = request.body.discipline;
+    let clubsArr = request.body.clubs;
     if (memberTypeId === 1) {
       let gender = request.body.gender;
       let dob = request.body.date_of_birth;
       let picture = request.body.picture_url;
-      db.profiles.writeAthleteProfile(memberId, gender, dob, picture, discArr, response, link);
+      db.profiles.writeAthleteProfileAndClubAthletes(memberId, gender, dob, picture, discArr, response, link, clubsArr);
     } else if (memberTypeId === 2) {
       let website = request.body.club_website_url;
       let ig = request.body.club_ig_url;

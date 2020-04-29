@@ -14,7 +14,7 @@ class Register extends React.Component {
       return (
         <div className="ml-4 form-check">
           <input
-            className="form-check-input"
+            className="form-check-input-disc"
             type="checkbox"
             name="discipline"
             value={element.id}
@@ -26,6 +26,22 @@ class Register extends React.Component {
 
     let defaultPicture =
       "https://icons-for-free.com/iconfiles/png/512/add+create+new+profile+user+icon-1320185001431562707.png";
+
+
+    let clubsArr = this.props.clubsArr;
+    let clubsArrHtml = clubsArr.map((element) => {
+      return (
+        <div className="ml-4 form-check">
+          <input
+            className="form-check-input-club"
+            type="checkbox"
+            name="club"
+            value={element.id}
+          />
+          <label>{element.full_name}</label>
+        </div>
+      );
+    });
 
     const Register = (
       <div className="container">
@@ -111,6 +127,14 @@ class Register extends React.Component {
                   Select Affiliated Gymnastics Disciplines:
                 </h6>
                 {disciplineArrHtml}
+                <br></br>
+              </div>
+
+              <div className="profile athlete" hidden>
+                <h6 className="mb-2">
+                  Select Affiliated Clubs:
+                </h6>
+                {clubsArrHtml}
                 <br></br>
               </div>
 

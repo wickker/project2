@@ -38,6 +38,7 @@ module.exports = (db) => {
     let picture = request.body.picture;
     let joinDate = Date.now();
     let discArr = request.body.disciplineArr;
+    let clubsArr = request.body.clubsArr;
     let cbPaymentDetails = async (result) => {
       console.log(result);
       let priceInCents = parseFloat(result.memberTypeDetails.price) * 100;
@@ -80,6 +81,7 @@ module.exports = (db) => {
       facebook,
       picture,
       discArr,
+      clubsArr,
       cbPaymentDetails
     );
   };

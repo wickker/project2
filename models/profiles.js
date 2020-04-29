@@ -11,7 +11,19 @@ module.exports = (pool) => {
         queryText = `select * from discipline`;
         await pool.query(queryText).then(async (result) => {
           data.disciplineArrOg = result.rows;
-          cb(data);
+          queryText = `select id, full_name from members where member_type_id = 2`;
+          await pool.query(queryText).then(async (result) => {
+            data.clubsArrOg = result.rows;
+            if (data.profile.member_type_id === 1) {
+              queryText = `select club_athlete.club_member_id, club_athlete.athlete_member_id, members.full_name from club_athlete join members on (members.id = club_athlete.club_member_id) where club_athlete.athlete_member_id = ${id}`;
+            } else if (data.profile.member_type_id === 2) {
+              queryText = `select club_athlete.club_member_id, club_athlete.athlete_member_id, members.full_name from club_athlete join members on (members.id = club_athlete.athlete_member_id) where club_athlete.club_member_id = ${id}`;
+            }
+            await pool.query(queryText).then(async (result) => {
+              data.clubsOrAthArr = result.rows;
+              cb(data);
+            });
+          });
         });
       });
     });
@@ -33,11 +45,22 @@ module.exports = (pool) => {
     });
   };
 
-  let writeAthleteProfile = async (memberId, gender, dob, picture, discArr, response, link) => {
+  let writeAthleteProfileAndClubAthletes = async (memberId, gender, dob, picture, discArr, response, link, clubsArr) => {
     let queryText = `update profiles set gender = '${gender}', dateofbirth = '${dob}', picture = '${picture}' where member_id = ${memberId} returning *`;
     await pool.query(queryText).then(async (result) => {
       console.log(result.rows[0]);
-      writeDisciplines(discArr, memberId, response, link);
+      queryText = `delete from club_athlete where athlete_member_id = ${memberId} returning *`;
+      await pool.query(queryText).then(async (result) => {
+        if (clubsArr) {
+          for (let i=0; i<clubsArr.length; i++) {
+            queryText = `insert into club_athlete (club_member_id, athlete_member_id) values (${clubsArr[i]}, ${memberId}) returning *`;
+            await pool.query(queryText).then(async (result) => {
+              console.log(result.rows);
+            });
+          }
+        }
+        writeDisciplines(discArr, memberId, response, link);
+      });
     });
   };
 
@@ -51,7 +74,7 @@ module.exports = (pool) => {
 
   return {
     getData: getData,
-    writeAthleteProfile: writeAthleteProfile,
+    writeAthleteProfileAndClubAthletes: writeAthleteProfileAndClubAthletes,
     writeClubProfile: writeClubProfile,
     writeDisciplines: writeDisciplines,
   };

@@ -10,6 +10,8 @@ class EditProfile extends React.Component {
     let profile = this.props.profile;
     let discArr = this.props.disciplineArr;
     let discArrOg = this.props.disciplineArrOg;
+    let clubsArr = this.props.clubsOrAthArr;
+    let clubsArrOg = this.props.clubsArrOg;
 
     let discArrHtml = discArrOg.map((element) => {
       let isChecked = false;
@@ -28,6 +30,27 @@ class EditProfile extends React.Component {
             checked={isChecked}
           />
           <label>{element.type}</label>
+        </div>
+      );
+    });
+
+    let clubsArrHtml = clubsArrOg.map((element) => {
+      let isChecked = false;
+      for (let i = 0; i < clubsArr.length; i++) {
+        if (clubsArr[i].club_member_id === element.id) {
+          isChecked = true;
+        }
+      }
+      return (
+        <div className="ml-4 form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            name="clubs"
+            value={element.id}
+            checked={isChecked}
+          />
+          <label>{element.full_name}</label>
         </div>
       );
     });
@@ -62,9 +85,11 @@ class EditProfile extends React.Component {
             value={profile.dateofbirth}
           ></input>
           <br></br>
+          <h6>Select Affiliated Club:</h6>
+          {clubsArrHtml}
         </div>
       );
-    } else {
+    } else if (profile.member_type_id === 2) {
       profileType = "Club";
       fields = (
         <div>

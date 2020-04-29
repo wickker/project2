@@ -9,6 +9,9 @@ class ShowOneProfile extends React.Component {
     let info;
     let pictureLink = "";
     let discText;
+    let clubAthText;
+    let clubsOrAthArrHtml;
+    let clubsOrAthArr = this.props.clubsOrAthArr;
 
     let discArrHtml;
     let discArr = this.props.disciplineArr;
@@ -45,16 +48,46 @@ class ShowOneProfile extends React.Component {
     if (profile.member_type_id === 1) {
       memberType = "Athlete";
       discText = "Affiliated Disciplines:";
+      if (clubsOrAthArr) {
+        clubsOrAthArrHtml = clubsOrAthArr.map((element) => {
+          let profileLink = "/profiles/" + element.club_member_id;
+          return (
+            <li>
+              <a href={profileLink}>{element.full_name}</a>
+            </li>
+          );
+        });
+        clubAthText = "Affiliated Clubs";
+      } else {
+        clubAthText = "";
+        clubsOrAthArrHtml = "";
+      }
       info = (
         <div>
           <h5>Date of Birth: {profile.dateofbirth}</h5>
           <h5>Gender: {profile.gender}</h5>
+          <h5>Affiliated Clubs:</h5>
+          <ul>{clubsOrAthArrHtml}</ul>
         </div>
       );
-    } else {
+    } else if (profile.member_type_id === 2) {
       memberType = "Club";
       pictureLink = profile.club_website_url;
       discText = "Disciplines Offered:";
+      if (clubsOrAthArr) {
+        clubsOrAthArrHtml = clubsOrAthArr.map((element) => {
+          let profileLink = "/profiles/" + element.athlete_member_id;
+          return (
+            <li>
+              <a href={profileLink}>{element.full_name}</a>
+            </li>
+          );
+        });
+        clubAthText = "Affiliated Athletes";
+      } else {
+        clubAthText = "";
+        clubsOrAthArrHtml = "";
+      }
       info = (
         <div>
           <br></br>
@@ -72,6 +105,10 @@ class ShowOneProfile extends React.Component {
               width="50px"
             ></img>
           </a>
+          <br></br>
+          <br></br>
+          <h5>{clubAthText}</h5>
+          <ul>{clubsOrAthArrHtml}</ul>
         </div>
       );
     }
@@ -95,7 +132,7 @@ class ShowOneProfile extends React.Component {
             <br></br>
             <h5>{discText}</h5>
             <ul>{discArrHtml}</ul>
-            
+
             {info}
           </div>
         </div>

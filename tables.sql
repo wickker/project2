@@ -44,6 +44,7 @@ create table if not exists member_discipline (
 
 create table if not exists club_athlete (
   id serial primary key,
-  club_profile_id integer,
-  athlete_profile_id integer
+  club_member_id integer,
+  athlete_member_id integer
 );
+

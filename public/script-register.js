@@ -106,7 +106,7 @@ let payment = (event) => {
   formObj.ig = document.getElementById("club_ig_url").value;
   formObj.picture = document.getElementById("picture_url").value;
   formObj.disciplineArr = [];
-  let disciplineArr2 = document.getElementsByClassName("form-check-input");
+  let disciplineArr2 = document.getElementsByClassName("form-check-input-disc");
   console.log(disciplineArr2);
   for (let i = 0; i < disciplineArr2.length; i++) {
     if (disciplineArr2[i].checked) {
@@ -114,6 +114,14 @@ let payment = (event) => {
     }
   }
   console.log(formObj.disciplineArr);
+
+  formObj.clubsArr = [];
+  let clubsArr2 = document.getElementsByClassName("form-check-input-club");
+  for (let i = 0; i < clubsArr2.length; i++) {
+    if (clubsArr2[i].checked) {
+      formObj.clubsArr.push(parseInt(clubsArr2[i].value));
+    }
+  }
   request.send(JSON.stringify(formObj));
 };
 

@@ -10,7 +10,11 @@ module.exports = (pool) => {
       queryText = "select * from discipline";
       await pool.query(queryText).then(async (result) => {
         data.disciplineArr = result.rows;
-        cb(data);
+        queryText = "select * from members where member_type_id = 2";
+        await pool.query(queryText).then(async (result) => {
+          data.clubsArr = result.rows;
+          cb(data);
+        });
       });
     });
   };
@@ -44,6 +48,7 @@ module.exports = (pool) => {
     facebook,
     picture,
     discArr,
+    clubsArr,
     cb
   ) => {
     let queryText = `insert into members (full_name, password, email, member_type_id, street_address, postal_code, unit, join_date, ispaid) values ('${name}', '${pw}', '${email}', ${memberTypeId}, '${address}', '${postcode}', '${unit}', ${joinDate}, 'false') returning *`;
@@ -59,11 +64,21 @@ module.exports = (pool) => {
             memberTypeDetails: result.rows[0],
             memberId: memberId,
           };
-          for (let i = 0; i < discArr.length; i++) {
-            queryText = `insert into member_discipline (member_id, discipline_id) values (${memberId}, ${discArr[i]}) returning *`;
-            await pool.query(queryText).then(async (result) => {
-              console.log(result.rows[0]);
-            });
+          if (discArr) {
+            for (let i = 0; i < discArr.length; i++) {
+              queryText = `insert into member_discipline (member_id, discipline_id) values (${memberId}, ${discArr[i]}) returning *`;
+              await pool.query(queryText).then(async (result) => {
+                console.log(result.rows[0]);
+              });
+            }
+          }
+          if (clubsArr) {
+            for (let x = 0; x < clubsArr.length; x++) {
+              queryText = `insert into club_athlete (club_member_id, athlete_member_id) values (${clubsArr[x]}, ${memberId}) returning *`;
+              await pool.query(queryText).then(async (result) => {
+                console.log(result.rows[0]);
+              });
+            }
           }
           cb(data);
         });
