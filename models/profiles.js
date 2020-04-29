@@ -21,11 +21,13 @@ module.exports = (pool) => {
     let queryText = `delete from member_discipline where member_id = ${memberId} returning *`;
     await pool.query(queryText).then(async (result) => {
       console.log(result.rows);
-      for (let i = 0; i < discArr.length; i++) {
-        queryText = `insert into member_discipline (member_id, discipline_id) values (${memberId}, ${discArr[i]}) returning *`;
-        await pool.query(queryText).then(async (result) => {
-          console.log(result.rows);
-        });
+      if (discArr) {
+        for (let i = 0; i < discArr.length; i++) {
+          queryText = `insert into member_discipline (member_id, discipline_id) values (${memberId}, ${discArr[i]}) returning *`;
+          await pool.query(queryText).then(async (result) => {
+            console.log(result.rows);
+          });
+        }
       }
       response.redirect(link);
     });

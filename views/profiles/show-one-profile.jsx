@@ -57,6 +57,7 @@ class ShowOneProfile extends React.Component {
       discText = "Disciplines Offered:";
       info = (
         <div>
+          <br></br>
           <a href={profile.club_ig_url} className="mr-3">
             <img
               src="https://cdn1.iconfinder.com/data/icons/logotypes/32/instagram-512.png"
@@ -91,9 +92,10 @@ class ShowOneProfile extends React.Component {
               <img src={profile.picture} height="250px" width="250px"></img>
             </a>
             <br></br>
+            <br></br>
             <h5>{discText}</h5>
             <ul>{discArrHtml}</ul>
-            <br></br>
+            
             {info}
           </div>
         </div>

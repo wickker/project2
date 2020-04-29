@@ -35,8 +35,6 @@ module.exports = (db) => {
       let picture = request.body.picture_url;
       db.profiles.writeClubProfile(memberId, website, ig, fb, picture, discArr, response, link);
     }
-    // db.profiles.writeDisciplines(discArr, memberId);
-    // response.redirect(link);
   };
 
   return {
