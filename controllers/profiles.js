@@ -54,11 +54,21 @@ module.exports = (db) => {
     db.profiles.getAthleteData(cbGetAthleteData);
   }
 
+  let getDiscipline = (request, response) => {
+    let discId = parseInt(request.params.id); 
+    let cbGetDiscData = (result) => {
+      console.log(result);
+      response.render("./profiles/disc-sort", result);
+    }
+    db.profiles.getDiscData(discId, cbGetDiscData);
+  }
+
   return {
     showProfile: showProfile,
     showEditProfileForm: showEditProfileForm,
     submitProfileEdits: submitProfileEdits,
     showAllClubProfiles: showAllClubProfiles,
-    showAllAthleteProfiles: showAllAthleteProfiles
+    showAllAthleteProfiles: showAllAthleteProfiles,
+    getDiscipline: getDiscipline
   };
 };

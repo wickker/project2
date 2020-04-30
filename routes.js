@@ -34,4 +34,6 @@ module.exports = (app, allModels) => {
   app.post("/profiles/:id/edit", profilesController.submitProfileEdits);
   
   app.get("/profiles/:id", profilesController.showProfile);
+
+  app.get("/discipline/:id", profilesController.getDiscipline);
 };

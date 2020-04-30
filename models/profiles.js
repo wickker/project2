@@ -128,12 +128,24 @@ module.exports = (pool) => {
     });
   };
 
+  let getDiscData = (discId, cb) => {
+    let queryText = `select members.full_name, member_discipline.member_id, member_discipline.discipline_id, members.member_type_id from members join member_discipline on (member_discipline.member_id = members.id) where member_discipline.discipline_id = ${discId}`;
+    pool.query(queryText, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        cb(result.rows);
+      }
+    })
+  }
+
   return {
     getData: getData,
     writeAthleteProfileAndClubAthletes: writeAthleteProfileAndClubAthletes,
     writeClubProfile: writeClubProfile,
     writeDisciplines: writeDisciplines,
     getClubData: getClubData,
-    getAthleteData: getAthleteData
+    getAthleteData: getAthleteData,
+    getDiscData: getDiscData
   };
 };

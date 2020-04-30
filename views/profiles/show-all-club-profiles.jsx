@@ -13,9 +13,9 @@ class ShowAllClubProfiles extends React.Component {
         <div className="row">
           <div className="col mt-4">
             <h3>View All Clubs</h3>
-            <div class="card-deck">
-              {clubsArrHtml}
-            </div>
+
+            {clubsArrHtml}
+            
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ class ShowAllAthleteProfiles extends React.Component {
         <div className="row">
           <div className="col mt-4">
             <h3>View All Athletes</h3>
-              <div className="row">{athletesArrHtml}</div>
+            <div className="row">{athletesArrHtml}</div>
           </div>
         </div>
       </div>

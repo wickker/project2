@@ -52,11 +52,18 @@ class ShowAllClubsMod extends React.Component {
     }
 
     return (
-      <div class="card">
-        <a href={club.club_website_url} target="_blank">
-          <img class="card-img-top" src={club.picture} alt="club logo" height="350px"/>
-        </a>
-        <div class="card-body text-center">
+      <div className="row border">
+        <div className="col-3">
+          <a href={club.club_website_url} target="_blank">
+            <img
+              class="rounded"
+              src={club.picture}
+              alt="club logo"
+              height="200px"
+            />
+          </a>
+        </div>
+        <div className="col-9">
           <h4 class="card-title">
             <u>{club.full_name}</u>
           </h4>
@@ -66,9 +73,6 @@ class ShowAllClubsMod extends React.Component {
           <p class="card-text mb-0">{athText}</p>
           <p>{athHtml}</p>
         </div>
-        {/* <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div> */}
       </div>
     );
   }

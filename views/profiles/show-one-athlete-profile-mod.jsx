@@ -53,30 +53,32 @@ class ShowAllAthletesMod extends React.Component {
     }
 
     return (
-        <div className="card col-4">
-          <a href={athleteProfileLink} target="_blank">
-            <img
-              className="card-img-top"
-              src={athlete.picture}
-              alt="athlete logo"
-              height="350px"
-            />
-          </a>
-          <div className="card-body text-center">
-            <h4 className="card-title">
+      <div className="col-6">
+        <div className="row">
+          <div className="col-6">
+            <a href={athleteProfileLink} target="_blank">
+              <img
+                className="rounded"
+                src={athlete.picture}
+                alt="athlete logo"
+                height="200px"
+                width="200px"
+              />
+            </a>
+          </div>
+          <div className="col-6">
+            <h4>
               <u>{athlete.full_name}</u>
             </h4>
-            <p className="card-text mb-0">{discText}</p>
+            <p className="mb-0">{discText}</p>
             <p>{discHtml}</p>
-            <p className="card-text">Date of Birth: {athlete.dateofbirth}</p>
-            <p className="card-text">Gender: {athlete.gender}</p>
-            <p className="card-text mb-0">{clubText}</p>
+            <p>Date of Birth: {athlete.dateofbirth}</p>
+            <p>Gender: {athlete.gender}</p>
+            <p className="mb-0">{clubText}</p>
             <p>{clubHtml}</p>
           </div>
-          {/* <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div> */}
         </div>
+      </div>
     );
   }
 }
