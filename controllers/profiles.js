@@ -57,18 +57,29 @@ module.exports = (db) => {
   let getDiscipline = (request, response) => {
     let discId = parseInt(request.params.id); 
     let cbGetDiscData = (result) => {
-      console.log(result);
-      response.render("./profiles/disc-sort", result);
+      let data = {
+        dataArr: result
+      };
+      console.log(data);
+      response.render("./profiles/disc-sort", data);
     }
     db.profiles.getDiscData(discId, cbGetDiscData);
   }
 
+  let tableByDisc = (request, response) => {
+    let cbGetTableByDisc = (result) => {
+      console.log(result);
+    }
+    db.profiles.getTableByDisc(cbGetTableByDisc);
+  }
+ 
   return {
     showProfile: showProfile,
     showEditProfileForm: showEditProfileForm,
     submitProfileEdits: submitProfileEdits,
     showAllClubProfiles: showAllClubProfiles,
     showAllAthleteProfiles: showAllAthleteProfiles,
-    getDiscipline: getDiscipline
+    getDiscipline: getDiscipline,
+    tableByDisc: tableByDisc
   };
 };

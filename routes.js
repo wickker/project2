@@ -3,6 +3,7 @@ module.exports = (app, allModels) => {
   const membersController = require("./controllers/members")(allModels);
   const profilesController = require("./controllers/profiles")(allModels);
 
+  //Routes
   app.get("/", membersController.showHome);
 
   app.post("/", membersController.login);
@@ -34,6 +35,8 @@ module.exports = (app, allModels) => {
   app.post("/profiles/:id/edit", profilesController.submitProfileEdits);
   
   app.get("/profiles/:id", profilesController.showProfile);
+
+  app.get("/discipline", profilesController.tableByDisc);
 
   app.get("/discipline/:id", profilesController.getDiscipline);
 };

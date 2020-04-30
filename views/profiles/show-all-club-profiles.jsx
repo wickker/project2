@@ -1,6 +1,6 @@
 var React = require("react");
 var Main = require("../MAIN");
-var ShowAllClubsMod = require("./show-one-club-profile-mod");
+var ShowAllClubsMod = require("./disc-sort-dropdown");
 
 class ShowAllClubProfiles extends React.Component {
   render() {
@@ -15,7 +15,7 @@ class ShowAllClubProfiles extends React.Component {
             <h3>View All Clubs</h3>
 
             {clubsArrHtml}
-            
+
           </div>
         </div>
       </div>

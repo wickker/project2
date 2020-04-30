@@ -129,7 +129,7 @@ module.exports = (pool) => {
   };
 
   let getDiscData = (discId, cb) => {
-    let queryText = `select members.full_name, member_discipline.member_id, member_discipline.discipline_id, members.member_type_id from members join member_discipline on (member_discipline.member_id = members.id) where member_discipline.discipline_id = ${discId}`;
+    let queryText = `select members.full_name, member_discipline.member_id, member_discipline.discipline_id, members.member_type_id, discipline.type from members join member_discipline on (member_discipline.member_id = members.id) join discipline on (discipline.id = member_discipline.discipline_id) where member_discipline.discipline_id = ${discId}`;
     pool.query(queryText, (err, result) => {
       if (err) {
         console.log(err);
@@ -139,6 +139,36 @@ module.exports = (pool) => {
     })
   }
 
+  let getTableByDisc = async (cb) => {
+    let queryText = `SELECT
+    sum(case when discipline.id=1 then 1 else 0 end) as mag,
+    sum(case when discipline.id=2 then 1 else 0 end) as wag,
+    sum(case when discipline.id=3 then 1 else 0 end) as rg,
+    sum(case when discipline.id=4 then 1 else 0 end) as tramp,
+    sum(case when discipline.id=5 then 1 else 0 end) as acro,
+    sum(case when discipline.id=6 then 1 else 0 end) as aero
+    from members 
+    JOIN member_discipline ON members.id=member_discipline.member_id 
+    JOIN discipline ON member_discipline.discipline_id=discipline.id`;
+    let data = {};
+    await pool.query(queryText).then(async (result) => {
+      data.clubsCount = result.rows[0];
+      queryText = `sum(case when discipline.id=1 and members.member_type_id=1 then 1 else 0 end) as mag,
+      sum(case when discipline.id=2 and members.member_type_id=1 then 1 else 0 end) as wag,
+      sum(case when discipline.id=3 and members.member_type_id=1 then 1 else 0 end) as rg,
+      sum(case when discipline.id=4 and members.member_type_id=1 then 1 else 0 end) as tramp,
+      sum(case when discipline.id=5 and members.member_type_id=1 then 1 else 0 end) as acro,
+      sum(case when discipline.id=6 and members.member_type_id=1 then 1 else 0 end) as aero
+      from members 
+      JOIN member_discipline ON members.id=member_discipline.member_id 
+      JOIN discipline ON member_discipline.discipline_id=discipline.id`;
+      await pool.query(queryText).then(async (result) => {
+        data.athCount = results.rows[0];
+        cb(data);
+      });
+    });
+  }
+
   return {
     getData: getData,
     writeAthleteProfileAndClubAthletes: writeAthleteProfileAndClubAthletes,
@@ -146,6 +176,7 @@ module.exports = (pool) => {
     writeDisciplines: writeDisciplines,
     getClubData: getClubData,
     getAthleteData: getAthleteData,
-    getDiscData: getDiscData
+    getDiscData: getDiscData,
+    getTableByDisc: getTableByDisc
   };
 };
