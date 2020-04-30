@@ -69,6 +69,7 @@ module.exports = (db) => {
   let tableByDisc = (request, response) => {
     let cbGetTableByDisc = (result) => {
       console.log(result);
+      response.render("./profiles/discipline", result);
     }
     db.profiles.getTableByDisc(cbGetTableByDisc);
   }

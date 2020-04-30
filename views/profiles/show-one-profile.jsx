@@ -19,22 +19,22 @@ class ShowOneProfile extends React.Component {
       let link;
       switch (element.discipline_id) {
         case 1:
-          link = "https://www.gymnastics.sport/site/discipline.php?disc=2";
+          link = "/discipline/1";
           break;
         case 2:
-          link = "https://www.gymnastics.sport/site/discipline.php?disc=3";
+          link = "/discipline/2";
           break;
         case 3:
-          link = "https://www.gymnastics.sport/site/discipline.php?disc=4";
+          link = "/discipline/3";
           break;
         case 4:
-          link = "https://www.gymnastics.sport/site/discipline.php?disc=5";
+          link = "/discipline/4";
           break;
         case 5:
-          link = "https://www.gymnastics.sport/site/discipline.php?disc=10";
+          link = "/discipline/5";
           break;
         case 6:
-          link = "https://www.gymnastics.sport/site/discipline.php?disc=9";
+          link = "/discipline/6";
       }
       return (
         <li>

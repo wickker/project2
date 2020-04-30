@@ -35,7 +35,7 @@ class Nav extends React.Component {
               <li class="nav-item">
                 <a
                   class="nav-link var whenpublic whenmember whenadmin"
-                  href="https://www.gymnastics.sport/site/"
+                  href="/discipline"
                   target="_blank"
                 >
                   Disciplines
