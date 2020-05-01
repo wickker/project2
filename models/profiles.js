@@ -91,7 +91,7 @@ module.exports = (pool) => {
   };
 
   let getClubData = async (cb) => {
-    let queryText = `select profiles.member_id, profiles.member_type_id, profiles.picture, profiles.club_website_url, profiles.club_ig_url, profiles.club_facebook_url, members.full_name from profiles join members on (members.id = profiles.member_id) where profiles.member_type_id = 2 order by members.full_name asc`;
+    let queryText = `select profiles.member_id, profiles.member_type_id, profiles.picture, profiles.club_website_url, profiles.club_ig_url, profiles.club_facebook_url, members.full_name, members.postal_code from profiles join members on (members.id = profiles.member_id) where profiles.member_type_id = 2 order by members.full_name asc`;
     await pool.query(queryText).then(async (result) => {
       let data = {};
       data.clubsArr = result.rows;

@@ -64,7 +64,7 @@ class ShowAllClubsMod extends React.Component {
           </a>
         </div>
         <div className="col-9">
-          <h4 class="card-title">
+          <h4 class="card-title club-name" postcode={club.postal_code}>
             <u>{club.full_name}</u>
           </h4>
           <p class="card-text mb-0">{discText}</p>
