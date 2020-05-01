@@ -10,6 +10,8 @@ var stripe = Stripe("pk_test_pckFflMIjCBNmdMoSjuXBhpA00Gd0QrvhH");
 const cloudinary_url = "https://api.cloudinary.com/v1_1/dwoimiuph/image/upload";
 const cloudinary_upload_preset = "wh3xm7xt";
 
+let veriEmail = false;
+
 let uploadImage = (event) => {
   function responseHandler() {
     let responseObject = JSON.parse(this.responseText);
@@ -71,8 +73,12 @@ let showRelevantProfile = (event) => {
   request.send(JSON.stringify(memberTypeIdObj));
 };
 
+
 let payment = (event) => {
   event.preventDefault();
+  if (isDataValid) {
+    return;
+  }
   function responseHandler() {
     let responseObject = JSON.parse(this.responseText);
     console.log(responseObject);
@@ -114,7 +120,6 @@ let payment = (event) => {
     }
   }
   console.log(formObj.disciplineArr);
-
   formObj.clubsArr = [];
   let clubsArr2 = document.getElementsByClassName("form-check-input-club");
   for (let i = 0; i < clubsArr2.length; i++) {
@@ -125,6 +130,36 @@ let payment = (event) => {
   request.send(JSON.stringify(formObj));
 };
 
+function veriEmailDuplicates(event) {
+  let inputEmail = event.target.value;
+  console.log(inputEmail);
+  function responseHandler() {
+    console.log(this.responseText);
+    let responseText = this.responseText;
+    if (responseText === "duplicate found") {
+      let dupliDiv = document.getElementById("dupli-email");
+      dupliDiv.innerText = "";
+      let errorMsg = document.createElement("p");
+      errorMsg.textContent = "Email already exists. Please try again.";
+      errorMsg.className = "text-danger";
+      dupliDiv.appendChild(errorMsg);
+    } else {
+      console.log("else case");
+      veriEmail = true;
+      let dupliDiv = document.getElementById("dupli-email");
+      dupliDiv.innerText = "";
+    }
+  }
+  var request = new XMLHttpRequest();
+  request.addEventListener("load", responseHandler);
+  request.open("POST", "/register/email");
+  request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  data = {
+    inputEmail: inputEmail
+  };
+  request.send(JSON.stringify(data));
+}
+
 let initOptions = () => {
   let memberTypeSelect = document.getElementById("member-type");
   memberTypeSelect.addEventListener("change", showRelevantProfile);
@@ -132,6 +167,8 @@ let initOptions = () => {
   uploadButton.addEventListener("click", uploadImage);
   let submitAndPayButton = document.getElementById("registration-form");
   submitAndPayButton.addEventListener("submit", payment);
+  let emailInput = document.getElementById("email");
+  emailInput.addEventListener("blur", veriEmailDuplicates);
 };
 
 initOptions();

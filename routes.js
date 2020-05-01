@@ -12,6 +12,8 @@ module.exports = (app, allModels) => {
 
   app.post("/register/new", membersController.showProfile);
 
+  app.post("/register/email", membersController.checkEmail);
+
   app.post("/register/payment", membersController.makePaymentAndSubmitRegistration);
 
   app.get("/logout", membersController.logout);

@@ -39,6 +39,36 @@ module.exports = (db) => {
     let joinDate = Date.now();
     let discArr = request.body.disciplineArr;
     let clubsArr = request.body.clubsArr;
+
+    // let checkUrl = (url) => {
+    //   const regex = new RegExp("https://");
+    //   const isLinkOk = regex.test(url);
+    //   return isLinkOk;
+    // };
+
+    // let checkEmail = (email) => {
+    //   const regex = new RegExp("@");
+    //   const isEmailOk = regex.test(email);
+    //   return isEmailOk;
+    // };
+
+    // let emailVeri = checkEmail(email);
+    // let websiteVeri = checkUrl(website);
+    // let igVeri = checkUrl(ig);
+    // let fbVeri = checkUrl(facebook);
+    // if (
+    //   emailVeri === false ||
+    //   (websiteVeri === false && website !== "") ||
+    //   (igVeri === false && ig !== "") ||
+    //   (fbVeri === false && facebook !== "")
+    // ) {
+    //   let cbRegistrationForm = (result) => {
+    //     console.log(result);
+    //     result.comments = "Invalid email or url. Please try again.";
+    //     response.render("./auth/register", result);
+    //   };
+    //   db.members.registrationForm(cbRegistrationForm);
+    // }
     let cbPaymentDetails = async (result) => {
       console.log(result);
       let priceInCents = parseFloat(result.memberTypeDetails.price) * 100;
@@ -113,7 +143,7 @@ module.exports = (db) => {
         response.cookie("memberid", memberId);
         response.cookie("loggedin", sha256("true"));
         let obj = {
-          name: memberName
+          name: memberName,
         };
         response.render("./auth/login-dashboard", obj);
       } else {
@@ -130,12 +160,12 @@ module.exports = (db) => {
     let memberId = parseInt(request.cookies.memberid);
     let cbPrintName = (result) => {
       let obj = {
-        name: result.full_name
+        name: result.full_name,
       };
       response.render("./auth/login-dashboard", obj);
-    }
+    };
     db.members.printName(cbPrintName, memberId);
-  }
+  };
 
   let logout = (request, response) => {
     let obj = {
@@ -145,31 +175,31 @@ module.exports = (db) => {
     response.clearCookie("loggedin");
     response.clearCookie("admin");
     response.render("./auth/logout", obj);
-  }
+  };
 
   let showPersonalParticulars = (request, response) => {
     let memberId = request.params.id;
     let cbDisplay = (result) => {
       console.log(result);
       let data = {
-        personalData: result
+        personalData: result,
       };
       response.render("./members/show-one-member", data);
-    }
+    };
     db.members.printName(cbDisplay, memberId);
-  }
+  };
 
   let showEditMemberForm = (request, response) => {
-    let memberId = request.params.id; 
+    let memberId = request.params.id;
     let cbSendDataToForm = (result) => {
       console.log(result);
       let data = {
-        memberData: result
-      }
+        memberData: result,
+      };
       response.render("./members/edit-member", data);
-    }
+    };
     db.members.printName(cbSendDataToForm, memberId);
-  }
+  };
 
   let submitEditedMember = (request, response) => {
     console.log(request.body);
@@ -180,10 +210,10 @@ module.exports = (db) => {
     let postcode = request.body.postal_code;
     let address = request.body.address;
     let memberId = parseInt(request.body.member_id);
-    db.members.updateMember(memberId, name, pw, email, unit, postcode,address);
+    db.members.updateMember(memberId, name, pw, email, unit, postcode, address);
     let link = "/members/" + memberId;
     response.redirect(link);
-  }
+  };
 
   let makeSubsPayment = (request, response) => {
     console.log(request.body);
@@ -217,6 +247,18 @@ module.exports = (db) => {
       }
     };
     db.members.paymentDetails(memberTypeId, cbPaymentDetails);
+  };
+
+  let checkEmail = (request, response) => {
+    let inputEmail = request.body.inputEmail;
+    let cbRetrieveEmail = (result) => {
+      if (result.length > 0) {
+        response.send("duplicate found");
+      } else {
+        response.send("no duplicate");
+      }
+    } 
+    db.members.retrieveEmail(cbRetrieveEmail, inputEmail);
   }
 
   return {
@@ -231,6 +273,7 @@ module.exports = (db) => {
     showPersonalParticulars: showPersonalParticulars,
     showEditMemberForm: showEditMemberForm,
     submitEditedMember: submitEditedMember,
-    makeSubsPayment: makeSubsPayment
+    makeSubsPayment: makeSubsPayment,
+    checkEmail: checkEmail
   };
 };

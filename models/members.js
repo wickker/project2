@@ -132,6 +132,17 @@ module.exports = (pool) => {
     });
   };
 
+  let retrieveEmail = (cb, email) => {
+    let queryText = `select * from members where email = '${email}'`;
+    pool.query(queryText, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        cb(result.rows);
+      }
+    });
+  };
+
   return {
     registrationForm: registrationForm,
     paymentDetails: paymentDetails,
@@ -140,5 +151,6 @@ module.exports = (pool) => {
     verifyLogin: verifyLogin,
     printName: printName,
     updateMember: updateMember,
+    retrieveEmail: retrieveEmail
   };
 };
