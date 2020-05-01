@@ -48,9 +48,7 @@ class Register extends React.Component {
         <div className="row">
           <div className="col mt-5">
             <h3 className="mb-4">New Membership Registration</h3>
-            <p className="text-danger">
-              <em>{this.props.comments}</em>
-            </p>
+            
             <form id="registration-form">
               <input
                 type="text"
@@ -228,7 +226,7 @@ class Register extends React.Component {
                   ></img>
                 </div>
               </div>
-
+              <div id="regex-error"></div>
               <br></br>
               <button
                 id="submit-and-pay-button"

@@ -39,36 +39,6 @@ module.exports = (db) => {
     let joinDate = Date.now();
     let discArr = request.body.disciplineArr;
     let clubsArr = request.body.clubsArr;
-
-    // let checkUrl = (url) => {
-    //   const regex = new RegExp("https://");
-    //   const isLinkOk = regex.test(url);
-    //   return isLinkOk;
-    // };
-
-    // let checkEmail = (email) => {
-    //   const regex = new RegExp("@");
-    //   const isEmailOk = regex.test(email);
-    //   return isEmailOk;
-    // };
-
-    // let emailVeri = checkEmail(email);
-    // let websiteVeri = checkUrl(website);
-    // let igVeri = checkUrl(ig);
-    // let fbVeri = checkUrl(facebook);
-    // if (
-    //   emailVeri === false ||
-    //   (websiteVeri === false && website !== "") ||
-    //   (igVeri === false && ig !== "") ||
-    //   (fbVeri === false && facebook !== "")
-    // ) {
-    //   let cbRegistrationForm = (result) => {
-    //     console.log(result);
-    //     result.comments = "Invalid email or url. Please try again.";
-    //     response.render("./auth/register", result);
-    //   };
-    //   db.members.registrationForm(cbRegistrationForm);
-    // }
     let cbPaymentDetails = async (result) => {
       console.log(result);
       let priceInCents = parseFloat(result.memberTypeDetails.price) * 100;

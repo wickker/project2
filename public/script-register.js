@@ -73,10 +73,56 @@ let showRelevantProfile = (event) => {
   request.send(JSON.stringify(memberTypeIdObj));
 };
 
+function isAllDataValid() {
+  let checkEmail = (email) => {
+    const regex = new RegExp("@");
+    const isEmailOk = regex.test(email);
+    return isEmailOk;
+  };
+  let checkUrl = (url) => {
+    const regex = new RegExp("https://");
+    const isLinkOk = regex.test(url);
+    return isLinkOk;
+  };
+  let email = document.getElementById("email").value;
+  let website = document.getElementById("club_website_url").value;
+  let facebook = document.getElementById("club_facebook_url").value;
+  let ig = document.getElementById("club_ig_url").value;
+  let emailVeri = checkEmail(email);
+  console.log(emailVeri);
+  let websiteVeri = checkUrl(website);
+  console.log(website);
+  console.log(websiteVeri);
+  let igVeri = checkUrl(ig);
+  console.log(ig);
+  console.log(igVeri);
+  let fbVeri = checkUrl(facebook);
+  console.log(facebook);
+  console.log(fbVeri);
+
+  if (
+    emailVeri === false ||
+    (websiteVeri === false && website !== "") ||
+    (igVeri === false && ig !== "") ||
+    (fbVeri === false && facebook !== "")
+  ) {
+    let regexDiv = document.getElementById("regex-error");
+    regexDiv.innerText = "";
+    let errorMsg = document.createElement("p");
+    errorMsg.textContent = "Invalid email or URL entered. Please try again.";
+    errorMsg.className = "text-danger";
+    regexDiv.appendChild(errorMsg);
+    return false;
+  } else if (veriEmail === true) {
+    let regexDiv = document.getElementById("regex-error");
+    regexDiv.innerText = "";
+    return true;
+  }
+}
 
 let payment = (event) => {
   event.preventDefault();
-  if (isDataValid) {
+  if (!isAllDataValid()) {
     return;
   }
   function responseHandler() {
@@ -155,7 +201,7 @@ function veriEmailDuplicates(event) {
   request.open("POST", "/register/email");
   request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   data = {
-    inputEmail: inputEmail
+    inputEmail: inputEmail,
   };
   request.send(JSON.stringify(data));
 }
