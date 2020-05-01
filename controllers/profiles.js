@@ -1,3 +1,5 @@
+const { Parser } = require("json2csv");
+
 module.exports = (db) => {
   let showProfile = (request, response) => {
     let memberId = parseInt(request.params.id);
@@ -73,6 +75,24 @@ module.exports = (db) => {
     }
     db.profiles.getTableByDisc(cbGetTableByDisc);
   }
+
+  let sendAthleteData = (request, response) => {
+    let cbGetAthleteData = (result) => {
+      console.log(result);
+      // response.send(result);
+      try {
+        const fields = ["member_id", "picture", "dateofbirth", "gender", "full_name", "email", "street_address", "postal_code", "unit", "discArr", "clubArr"];
+        const opts = { fields };
+        const parser = new Parser(opts);
+        const csv = parser.parse(result.athArr);
+        response.send(csv);
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    db.profiles.getAthleteData(cbGetAthleteData);
+  }
  
   return {
     showProfile: showProfile,
@@ -81,6 +101,8 @@ module.exports = (db) => {
     showAllClubProfiles: showAllClubProfiles,
     showAllAthleteProfiles: showAllAthleteProfiles,
     getDiscipline: getDiscipline,
-    tableByDisc: tableByDisc
+    tableByDisc: tableByDisc,
+    sendAthleteData: sendAthleteData
+
   };
 };

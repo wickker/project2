@@ -7,7 +7,8 @@ class ShowAllAthletesMod extends React.Component {
     let discText = "";
     let clubText = "";
     let clubHtml = "";
-    let athleteProfileLink = "/athletes/" + athlete.member_id;
+    let athleteProfileLink = "/profiles/" + athlete.member_id;
+    
 
     if (athlete.discArr.length > 0) {
       discHtml = athlete.discArr.map((element) => {
