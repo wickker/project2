@@ -16,18 +16,15 @@ class ShowAllClubProfiles extends React.Component {
 
             <div id="map"></div>
 
+            <button id="download-button-2">Download All Club Details As CSV</button>
+
             {clubsArrHtml}
           </div>
         </div>
         
         <script src="/script-map.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO3YiGbflnY-tApZTBzHvExI4E_EtgqNA&libraries=places&callback=initMap"></script>
-        
-        {/* <script
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO3YiGbflnY-tApZTBzHvExI4E_EtgqNA&callback=initMap"
-          async
-          defer
-        ></script> */}
+        <script src="/script-dlcsv-club.js"></script>
       </div>
     );
     return <Main children={ShowAllClubProfiles} />;

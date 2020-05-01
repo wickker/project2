@@ -94,6 +94,23 @@ module.exports = (db) => {
     db.profiles.getAthleteData(cbGetAthleteData);
   }
  
+  let sendClubData = (request, response) => {
+    let cbGetClubData = (result) => {
+      console.log(result);
+      try {
+        const fields = ["member_id", "picture", "club_website_url", "club_ig_url", "club_facebook_url", "full_name", "email", "street_address", "postal_code", "unit", "discArr", "athArr"];
+        const opts = { fields };
+        const parser = new Parser(opts);
+        const csv = parser.parse(result.clubsArr);
+        response.send(csv);
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    db.profiles.getClubData(cbGetClubData);
+  }
+
   return {
     showProfile: showProfile,
     showEditProfileForm: showEditProfileForm,
@@ -102,7 +119,8 @@ module.exports = (db) => {
     showAllAthleteProfiles: showAllAthleteProfiles,
     getDiscipline: getDiscipline,
     tableByDisc: tableByDisc,
-    sendAthleteData: sendAthleteData
+    sendAthleteData: sendAthleteData,
+    sendClubData: sendClubData
 
   };
 };

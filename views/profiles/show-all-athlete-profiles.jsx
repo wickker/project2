@@ -13,12 +13,11 @@ class ShowAllAthleteProfiles extends React.Component {
         <div className="row">
           <div className="col mt-4">
             <h3>View All Athletes</h3>
-            <button id="download-button">Download All Athlete Details</button>
+            <button id="download-button">Download All Athlete Details As CSV</button>
             <div className="row">{athletesArrHtml}</div>
           </div>
         </div>
-        {/* <script src="https://cdn.jsdelivr.net/npm/json2csv"></script> */}
-        <script src="/script-dlcsv.js"></script>
+        <script src="/script-dlcsv-athlete.js"></script>
       </div>
     );
     return <Main children={ShowAllAthleteProfiles} />;

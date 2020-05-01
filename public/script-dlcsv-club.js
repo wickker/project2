@@ -1,4 +1,4 @@
-console.log("script dl csv!");
+console.log("script dl csv club!");
 
 function downloadFile(data, filename, mime, bom) {
   var blobData = typeof bom !== "undefined" ? [bom, data] : [data];
@@ -39,7 +39,7 @@ function downloadFile(data, filename, mime, bom) {
 }
 
 function initDlButton() {
-  let dlButton = document.getElementById("download-button");
+  let dlButton = document.getElementById("download-button-2");
 
   let download = () => {
     // console.log('downloadingg');
@@ -48,7 +48,7 @@ function initDlButton() {
       // console.log("response text", this.responseText);
       // let data = JSON.parse(this.responseText);
       let data = this.responseText;
-      downloadFile(data, "athlete-details.csv");
+      downloadFile(data, "club-details.csv");
     };
 
     // make a new request
@@ -58,7 +58,7 @@ function initDlButton() {
     request.addEventListener("load", responseHandler);
 
     // ready the system by calling open, and specifying the url
-    var url = "http://127.0.0.1:3000/profiles/athletes/api";
+    var url = "http://127.0.0.1:3000/profiles/clubs/api";
     request.open("GET", url);
 
     // send the request

@@ -28,6 +28,8 @@ module.exports = (app, allModels) => {
 
   app.get("/profiles/clubs", profilesController.showAllClubProfiles);
 
+  app.get("/profiles/clubs/api", profilesController.sendClubData);
+
   app.get("/profiles/athletes", profilesController.showAllAthleteProfiles);
 
   app.get("/profiles/athletes/api", profilesController.sendAthleteData);
