@@ -98,7 +98,7 @@ module.exports = (db) => {
     let cbGetClubData = (result) => {
       console.log(result);
       try {
-        const fields = ["member_id", "picture", "club_website_url", "club_ig_url", "club_facebook_url", "full_name", "email", "street_address", "postal_code", "unit", "discArr", "athArr"];
+        const fields = ["club_website_url", "club_ig_url", "club_facebook_url", "full_name", "email", "street_address", "postal_code", "unit", "discArr"];
         const opts = { fields };
         const parser = new Parser(opts);
         const csv = parser.parse(result.clubsArr);

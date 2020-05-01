@@ -73,6 +73,7 @@ class ShowAllAthletesMod extends React.Component {
             </h4>
             <p className="mb-0">{discText}</p>
             <p>{discHtml}</p>
+            <p>Email: {athlete.email}</p>
             <p>Date of Birth: {athlete.dateofbirth}</p>
             <p>Gender: {athlete.gender}</p>
             <p className="mb-0">{clubText}</p>

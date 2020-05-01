@@ -185,6 +185,40 @@ module.exports = (db) => {
     response.redirect(link);
   }
 
+  let makeSubsPayment = (request, response) => {
+    console.log(request.body);
+    let memberTypeId = parseInt(request.body.memberType);
+    let memberId = parseInt(request.body.memberId);
+    let cbPaymentDetails = async (result) => {
+      console.log(result);
+      let priceInCents = parseFloat(result.price) * 100;
+      let nameString = result.type + " Membership";
+      let successUrl =
+        "http://127.0.0.1:3000/success?session_id={CHECKOUT_SESSION_ID}---" +
+        memberId;
+      let cancelUrl = "http://127.0.0.1:3000/members/" + memberId;
+      try {
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ["card"],
+          line_items: [
+            {
+              name: nameString,
+              amount: priceInCents,
+              currency: "sgd",
+              quantity: 1,
+            },
+          ],
+          success_url: successUrl,
+          cancel_url: cancelUrl,
+        });
+        response.send(session);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    db.members.paymentDetails(memberTypeId, cbPaymentDetails);
+  }
+
   return {
     showHome: showHome,
     showRegistrationForm: showRegistrationForm,
@@ -196,6 +230,7 @@ module.exports = (db) => {
     logout: logout,
     showPersonalParticulars: showPersonalParticulars,
     showEditMemberForm: showEditMemberForm,
-    submitEditedMember: submitEditedMember
+    submitEditedMember: submitEditedMember,
+    makeSubsPayment: makeSubsPayment
   };
 };

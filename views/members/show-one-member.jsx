@@ -55,6 +55,8 @@ class ShowOneMember extends React.Component {
             {payButton}
           </div>
         </div>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="/script-one-member.js"></script>
       </div>
     );
     return <Main children={ShowOneMember} />;

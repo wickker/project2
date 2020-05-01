@@ -148,25 +148,3 @@ insert into club_athlete (club_member_id, athlete_member_id) values (28, 23);
 insert into club_athlete (club_member_id, athlete_member_id) values (29, 24);
 insert into club_athlete (club_member_id, athlete_member_id) values (27, 25);
 insert into club_athlete (club_member_id, athlete_member_id) values (27, 26);
--- all clubs count
-SELECT
-sum(case when discipline.id=1 and members.member_type_id=2 then 1 else 0 end) as mag,
-sum(case when discipline.id=2 and members.member_type_id=2 then 1 else 0 end) as wag,
-sum(case when discipline.id=3 and members.member_type_id=2 then 1 else 0 end) as rg,
-sum(case when discipline.id=4 and members.member_type_id=2 then 1 else 0 end) as tramp,
-sum(case when discipline.id=5 and members.member_type_id=2 then 1 else 0 end) as acro,
-sum(case when discipline.id=6 and members.member_type_id=2 then 1 else 0 end) as aero
-from members 
-JOIN member_discipline ON members.id=member_discipline.member_id 
-JOIN discipline ON member_discipline.discipline_id=discipline.id;
--- all athletes count
-SELECT
-sum(case when discipline.id=1 and members.member_type_id=1 then 1 else 0 end) as mag,
-sum(case when discipline.id=2 and members.member_type_id=1 then 1 else 0 end) as wag,
-sum(case when discipline.id=3 and members.member_type_id=1 then 1 else 0 end) as rg,
-sum(case when discipline.id=4 and members.member_type_id=1 then 1 else 0 end) as tramp,
-sum(case when discipline.id=5 and members.member_type_id=1 then 1 else 0 end) as acro,
-sum(case when discipline.id=6 and members.member_type_id=1 then 1 else 0 end) as aero
-from members 
-JOIN member_discipline ON members.id=member_discipline.member_id 
-JOIN discipline ON member_discipline.discipline_id=discipline.id;

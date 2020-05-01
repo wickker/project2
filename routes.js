@@ -20,6 +20,8 @@ module.exports = (app, allModels) => {
 
   app.get("/members", membersController.showDashboard);
 
+  app.post("/members/payment", membersController.makeSubsPayment);
+
   app.get("/members/:id/edit", membersController.showEditMemberForm);
 
   app.post("/members/:id/edit", membersController.submitEditedMember);

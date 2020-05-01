@@ -67,6 +67,7 @@ class ShowAllClubsMod extends React.Component {
           <h4 class="card-title club-name" postcode={club.postal_code}>
             <u>{club.full_name}</u>
           </h4>
+          <p class="card-text">Email: {club.email}</p>
           <p class="card-text mb-0">{discText}</p>
           <p>{discHtml}</p>
           <p class="card-text">Number of Athletes: {club.athArr.length}</p>
