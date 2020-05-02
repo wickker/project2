@@ -35,12 +35,14 @@ class EditMember extends React.Component {
               <h6>Email:</h6>
               <input
                 type="text"
+                id="email-input"
                 name="email"
                 value={memberData.email}
                 className="form-control"
                 required
               />
               <br></br>
+              <div id="duplicate-email"></div>
               <h6>Street Address:</h6>
               <input
                 type="text"
@@ -75,7 +77,7 @@ class EditMember extends React.Component {
               />
 
               <br></br>
-              <button className="btn btn-primary" type="submit">
+              <button id="edit-member-button" className="btn btn-primary" type="submit">
                 Submit
               </button>
               <br></br>
@@ -83,6 +85,7 @@ class EditMember extends React.Component {
             </form>
           </div>
         </div>
+        <script src="/script-edit-biodata.js"></script>
       </div>
     );
     return <Main children={EditMember} />;
