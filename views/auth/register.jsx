@@ -27,7 +27,6 @@ class Register extends React.Component {
     let defaultPicture =
       "https://icons-for-free.com/iconfiles/png/512/add+create+new+profile+user+icon-1320185001431562707.png";
 
-
     let clubsArr = this.props.clubsArr;
     let clubsArrHtml = clubsArr.map((element) => {
       return (
@@ -45,10 +44,11 @@ class Register extends React.Component {
 
     const Register = (
       <div className="container">
+       
         <div className="row">
           <div className="col mt-5">
             <h3 className="mb-4">New Membership Registration</h3>
-            
+
             <form id="registration-form">
               <input
                 type="text"
@@ -59,12 +59,15 @@ class Register extends React.Component {
               />
               <br></br>
               <input
-                type="text"
+                type="password"
                 id="password"
                 placeholder="Password"
                 className="form-control"
                 required
               />
+              <input type="checkbox" id="show-pw" />
+              Show Password
+              <br></br>
               <br></br>
               <input
                 type="text"
@@ -75,7 +78,6 @@ class Register extends React.Component {
               />
               <br></br>
               <div id="dupli-email"></div>
-              
               <input
                 type="text"
                 id="street_address"
@@ -112,16 +114,13 @@ class Register extends React.Component {
               </select>
               <br></br>
               <br></br>
-
               {/* Profile Fields */}
               <h4 className="mb-4 profile athlete" hidden>
                 Athlete Membership - Profile
               </h4>
-
               <h4 className="mb-4 profile club" hidden>
                 Club Membership - Profile
               </h4>
-
               <div className="profile athlete club" hidden>
                 <h6 className="mb-2">
                   Select Affiliated Gymnastics Disciplines:
@@ -129,15 +128,11 @@ class Register extends React.Component {
                 {disciplineArrHtml}
                 <br></br>
               </div>
-
               <div className="profile athlete" hidden>
-                <h6 className="mb-2">
-                  Select Affiliated Clubs:
-                </h6>
+                <h6 className="mb-2">Select Affiliated Clubs:</h6>
                 {clubsArrHtml}
                 <br></br>
               </div>
-
               <div className="profile athlete" hidden>
                 <select id="gender" className="custom-select compulsory">
                   <option value="" disabled selected>
@@ -149,7 +144,6 @@ class Register extends React.Component {
                 <br></br>
                 <br></br>
               </div>
-
               <div className="profile athlete" hidden>
                 <h6 className="mb-1">Date Of Birth:</h6>
                 <input
@@ -159,7 +153,6 @@ class Register extends React.Component {
                 ></input>
                 <br></br>
               </div>
-
               <div className="profile club" hidden>
                 <input
                   type="text"
@@ -169,7 +162,6 @@ class Register extends React.Component {
                 ></input>
                 <br></br>
               </div>
-
               <div className="profile club" hidden>
                 <input
                   type="text"
@@ -179,7 +171,6 @@ class Register extends React.Component {
                 ></input>
                 <br></br>
               </div>
-
               <div className="profile club" hidden>
                 <input
                   type="text"
@@ -189,7 +180,6 @@ class Register extends React.Component {
                 ></input>
                 <br></br>
               </div>
-
               <div className="profile athlete club" hidden>
                 <h6 className="mb-1">Upload Profile Picture/ Club Logo:</h6>
                 <div class="input-group">

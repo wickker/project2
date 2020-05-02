@@ -206,6 +206,16 @@ function veriEmailDuplicates(event) {
   request.send(JSON.stringify(data));
 }
 
+function togglePw() {
+  console.log("toggle pw func");
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
 let initOptions = () => {
   let memberTypeSelect = document.getElementById("member-type");
   memberTypeSelect.addEventListener("change", showRelevantProfile);
@@ -215,6 +225,8 @@ let initOptions = () => {
   submitAndPayButton.addEventListener("submit", payment);
   let emailInput = document.getElementById("email");
   emailInput.addEventListener("blur", veriEmailDuplicates);
+  let showPw = document.getElementById("show-pw");
+  showPw.addEventListener("change", togglePw);
 };
 
 initOptions();

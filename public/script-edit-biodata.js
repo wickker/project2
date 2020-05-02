@@ -54,9 +54,21 @@ function veriEmailDuplicates(event) {
   }
 }
 
+function togglePw() {
+  console.log("toggle pw func");
+  var x = document.getElementById("member-pw");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
 let initOptions = () => {
   emailInput.addEventListener("focus", saveInitEmail);
   emailInput.addEventListener("blur", veriEmailDuplicates);
+  let showPw = document.getElementById("show-pw-member");
+  showPw.addEventListener("change", togglePw);
 };
 
 initOptions();

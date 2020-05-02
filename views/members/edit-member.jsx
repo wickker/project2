@@ -25,12 +25,16 @@ class EditMember extends React.Component {
               <br></br>
               <h6>Password:</h6>
               <input
-                type="text"
+                type="password"
+                id="member-pw"
                 name="password"
                 value={memberData.password}
                 className="form-control"
                 required
               />
+              <input type="checkbox" id="show-pw-member" />
+              Show Password
+              <br></br>
               <br></br>
               <h6>Email:</h6>
               <input
