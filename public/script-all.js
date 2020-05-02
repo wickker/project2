@@ -25,6 +25,7 @@ function checkLogins() {
   let publicHtmlArr = document.getElementsByClassName("whenpublic");
 
   if (memberIdCookie && memberIdCookie !== "") {
+    //When admin is logged in
     if (adminCookie && adminCookie !== "") {
       for (let x = 0; x < varHtmlArr.length; x++) {
         varHtmlArr[x].hidden = true;
@@ -33,6 +34,7 @@ function checkLogins() {
         adminHtmlArr[i].hidden = false;
       }
       document.getElementById("admin-mode-text").textContent = "Admin Mode";
+      //When a regular member is logged in
     } else {
       for (let x = 0; x < varHtmlArr.length; x++) {
         varHtmlArr[x].hidden = true;
@@ -42,15 +44,22 @@ function checkLogins() {
       }
       document.getElementById("mybio").href = "/members/" + memberIdCookie;
       document.getElementById("myprofile").href = "/profiles/" + memberIdCookie;
-      document.getElementById("editbio").href = "/members/" + memberIdCookie + "/edit";
-      document.getElementById("editprofile").href = "/profiles/" + memberIdCookie + "/edit";
+      document.getElementById("editbio").href =
+        "/members/" + memberIdCookie + "/edit";
+      document.getElementById("editprofile").href =
+        "/profiles/" + memberIdCookie + "/edit";
     }
+    //When the page is accessible to the public
   } else {
     for (let x = 0; x < varHtmlArr.length; x++) {
       varHtmlArr[x].hidden = true;
     }
     for (let i = 0; i < publicHtmlArr.length; i++) {
       publicHtmlArr[i].hidden = false;
+    }
+    let affiAthletesDiv = document.getElementsByClassName("affi-athletes");
+    for (let z = 0; z < affiAthletesDiv.length; z++) {
+      affiAthletesDiv[z].hidden = true;
     }
   }
 }

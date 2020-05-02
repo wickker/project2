@@ -30,7 +30,7 @@ class Home extends React.Component {
                   />
                   <br></br>
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     placeholder="Password"
                     className="form-control"

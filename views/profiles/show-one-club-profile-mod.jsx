@@ -71,8 +71,10 @@ class ShowAllClubsMod extends React.Component {
           <p class="card-text mb-0">{discText}</p>
           <p>{discHtml}</p>
           <p class="card-text">Number of Athletes: {club.athArr.length}</p>
-          <p class="card-text mb-0">{athText}</p>
-          <p>{athHtml}</p>
+          <div class="affi-athletes">
+            <p class="card-text mb-0">{athText}</p>
+            <p>{athHtml}</p>
+          </div>
         </div>
       </div>
     );

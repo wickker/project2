@@ -67,4 +67,25 @@ function initDlButton() {
   dlButton.addEventListener("click", download);
 }
 
+let sortButton = document.getElementById("sort-button");
+
+function toggleSort(event) {
+  let alphaDiv = document.getElementById("by-alpha");
+  let athCountDiv = document.getElementById("by-athcount");
+  if (athCountDiv.hidden === true) {
+    athCountDiv.hidden = false;
+    alphaDiv.hidden = true;
+    sortButton.innerText = "Sort Clubs Alphabetically";
+  } else {
+    alphaDiv.hidden = false;
+    athCountDiv.hidden = true;
+    sortButton.innerText = "Sort Clubs By Popularity";
+  }
+}
+
+function initToggleSort() {
+  sortButton.addEventListener("click", toggleSort);
+}
+
 initDlButton();
+initToggleSort();
