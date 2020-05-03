@@ -32,20 +32,26 @@ class sortDisc extends React.Component {
     if (dataArr.length > 0) {
       fields = (
         <div>
-          <h3>Sorted By Discipline - {dataArr[0].type}</h3>
-          <div>
-            <button id="view-clubs">Affiliated Clubs:</button>
-            <ul id="clubs-list" hidden>
-              {clubsHtml}
-            </ul>
+          <div className="mb-4 h3">
+            Sorted By Discipline - {dataArr[0].type}
           </div>
-          <br></br>
+          <div className="mb-4">
+            <button className="button" id="view-clubs">
+              Affiliated Clubs
+            </button>
+            <ol id="clubs-list" className="mt-3 list" hidden>
+              {clubsHtml}
+            </ol>
+          </div>
+          {/* <br></br> */}
           <div>
-            <button id="view-athletes">Affiliated Athletes:</button>
-            <ul id="athletes-list" hidden>
+            <button className="button" id="view-athletes">
+              Affiliated Athletes
+            </button>
+            <ol id="athletes-list" className="mt-3 list" hidden>
               {athHtml}
-            </ul>
-            <div id="admin-comment"></div>
+            </ol>
+            <div id="admin-comment" className="mt-3 error-msg"></div>
           </div>
         </div>
       );
@@ -57,8 +63,12 @@ class sortDisc extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col mt-4">
-            <DiscDropdown />
-            {fields}
+            <div className="margin-div">
+              <DiscDropdown />
+            </div>
+
+            <br></br>
+            <div className="entry">{fields}</div>
           </div>
         </div>
         <script src="/script-sortdisc.js"></script>

@@ -26,6 +26,8 @@ function checkLogins() {
 
   if (memberIdCookie && memberIdCookie !== "") {
     //When admin is logged in
+    document.getElementById("home-logo").removeAttribute("href");
+    
     if (adminCookie && adminCookie !== "") {
       for (let x = 0; x < varHtmlArr.length; x++) {
         varHtmlArr[x].hidden = true;
@@ -51,6 +53,7 @@ function checkLogins() {
     }
     //When the page is accessible to the public
   } else {
+    document.getElementById("home-logo").href = "/";
     for (let x = 0; x < varHtmlArr.length; x++) {
       varHtmlArr[x].hidden = true;
     }

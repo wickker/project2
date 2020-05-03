@@ -3,7 +3,7 @@ var React = require("react");
 class DiscDropdown extends React.Component {
   render() {
     return (
-      <select id="discipline-type" name="discipline-type" className="custom-select">
+      <select id="discipline-type" name="discipline-type" className="custom-select input">
         <option value="">Select Discipline To Sort By</option>
         <option value="1">Men's Artistic</option>
         <option value="2">Women's Artistic</option>

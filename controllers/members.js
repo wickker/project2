@@ -3,7 +3,11 @@ const stripe = require("stripe")("sk_test_FmNttL0lkqXFZgzq2tjknhNB00qilakYCt");
 
 module.exports = (db) => {
   let showHome = (request, response) => {
-    response.render("home");
+    let cbGetClubMembersCount = (result) => {
+      console.log(result);
+      response.render("home", result[0]);
+    };
+    db.members.getClubMembersCount(cbGetClubMembersCount);
   };
 
   //Display the membership registration form
@@ -120,7 +124,12 @@ module.exports = (db) => {
         let obj = {
           comments: "User not found. Please try again.",
         };
-        response.render("home", obj);
+        let cbGetClubMembersCount = (result) => {
+          obj.athletes = result[0].athletes;
+          obj.clubs = result[0].clubs;
+          response.render("home", obj);
+        };
+        db.members.getClubMembersCount(cbGetClubMembersCount);
       }
     };
     db.members.verifyLogin(email, password, cbVerifyLogin);
@@ -227,9 +236,9 @@ module.exports = (db) => {
       } else {
         response.send("no duplicate");
       }
-    } 
+    };
     db.members.retrieveEmail(cbRetrieveEmail, inputEmail);
-  }
+  };
 
   return {
     showHome: showHome,
@@ -244,6 +253,6 @@ module.exports = (db) => {
     showEditMemberForm: showEditMemberForm,
     submitEditedMember: submitEditedMember,
     makeSubsPayment: makeSubsPayment,
-    checkEmail: checkEmail
+    checkEmail: checkEmail,
   };
 };

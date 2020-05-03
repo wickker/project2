@@ -6,7 +6,11 @@ class Register extends React.Component {
     let memberTypeArr = this.props.memberTypeArr;
     let memberTypeArrHtml = memberTypeArr.map((element) => {
       let string = element.type + " - $" + element.price;
-      return <option value={element.id}>{string}</option>;
+      return (
+        <option value={element.id} className="input">
+          {string}
+        </option>
+      );
     });
 
     let disciplineArr = this.props.disciplineArr;
@@ -14,7 +18,7 @@ class Register extends React.Component {
       return (
         <div className="ml-4 form-check">
           <input
-            className="form-check-input-disc"
+            className="form-check-input-disc input"
             type="checkbox"
             name="discipline"
             value={element.id}
@@ -44,17 +48,16 @@ class Register extends React.Component {
 
     const Register = (
       <div className="container">
-       
         <div className="row">
-          <div className="col mt-5">
-            <h3 className="mb-4">New Membership Registration</h3>
+          <div className="col mt-5 form">
+            <div className="mb-5 h3">New Membership Registration</div>
 
             <form id="registration-form">
               <input
                 type="text"
                 id="full_name"
-                placeholder="Full Name As Per NRIC OR Club Name"
-                className="form-control"
+                placeholder="Full Name As Per NRIC / Club Name"
+                className="form-control input"
                 required
               />
               <br></br>
@@ -62,18 +65,18 @@ class Register extends React.Component {
                 type="password"
                 id="password"
                 placeholder="Password"
-                className="form-control"
+                className="form-control input"
                 required
               />
-              <input type="checkbox" id="show-pw" />
-              Show Password
-              <br></br>
+              <input type="checkbox" id="show-pw" className="input" />
+              <label>Show Password</label>
+
               <br></br>
               <input
                 type="text"
                 id="email"
                 placeholder="Email"
-                className="form-control"
+                className="form-control input"
                 required
               />
               <br></br>
@@ -82,7 +85,7 @@ class Register extends React.Component {
                 type="text"
                 id="street_address"
                 placeholder="Street Address"
-                className="form-control"
+                className="form-control input"
                 required
               />
               <br></br>
@@ -90,24 +93,24 @@ class Register extends React.Component {
                 type="text"
                 id="unit"
                 placeholder="Unit Number"
-                className="form-control"
+                className="form-control input"
               />
               <br></br>
               <input
                 type="text"
                 id="postal_code"
                 placeholder="Postal Code"
-                className="form-control"
+                className="form-control input"
                 required
               />
               <br></br>
               <select
                 name="membership_type_id"
-                className="custom-select"
+                className="custom-select input"
                 id="member-type"
                 required
               >
-                <option value="" disabled selected>
+                <option value="" className="input" disabled selected>
                   Select Membership Type
                 </option>
                 {memberTypeArrHtml}
@@ -115,26 +118,26 @@ class Register extends React.Component {
               <br></br>
               <br></br>
               {/* Profile Fields */}
-              <h4 className="mb-4 profile athlete" hidden>
+              <div className="mt-4 mb-5 profile athlete h4" hidden>
                 Athlete Membership - Profile
-              </h4>
-              <h4 className="mb-4 profile club" hidden>
+              </div>
+              <div className="mt-4 mb-5 profile club h4" hidden>
                 Club Membership - Profile
-              </h4>
+              </div>
               <div className="profile athlete club" hidden>
-                <h6 className="mb-2">
-                  Select Affiliated Gymnastics Disciplines:
-                </h6>
+                <div className="mb-2 h6">
+                  Select Affiliated Gymnastics Disciplines
+                </div>
                 {disciplineArrHtml}
                 <br></br>
               </div>
               <div className="profile athlete" hidden>
-                <h6 className="mb-2">Select Affiliated Clubs:</h6>
+                <div className="mb-2 h6">Select Affiliated Clubs</div>
                 {clubsArrHtml}
                 <br></br>
               </div>
               <div className="profile athlete" hidden>
-                <select id="gender" className="custom-select compulsory">
+                <select id="gender" className="custom-select compulsory input">
                   <option value="" disabled selected>
                     Select Gender
                   </option>
@@ -145,10 +148,10 @@ class Register extends React.Component {
                 <br></br>
               </div>
               <div className="profile athlete" hidden>
-                <h6 className="mb-1">Date Of Birth:</h6>
+              <div className="mb-2 h6">Date of Birth</div>
                 <input
                   type="date"
-                  className="form-control date_input compulsory"
+                  className="form-control date_input compulsory input"
                   id="date_of_birth"
                 ></input>
                 <br></br>
@@ -156,7 +159,7 @@ class Register extends React.Component {
               <div className="profile club" hidden>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control input"
                   id="club_website_url"
                   placeholder="Website URL"
                 ></input>
@@ -165,7 +168,7 @@ class Register extends React.Component {
               <div className="profile club" hidden>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control input"
                   id="club_ig_url"
                   placeholder="Instagram URL"
                 ></input>
@@ -174,17 +177,17 @@ class Register extends React.Component {
               <div className="profile club" hidden>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control input"
                   id="club_facebook_url"
                   placeholder="Facebook URL"
                 ></input>
                 <br></br>
               </div>
               <div className="profile athlete club" hidden>
-                <h6 className="mb-1">Upload Profile Picture/ Club Logo:</h6>
+              <div className="mb-2 h6">Upload Profile Picture / Club Logo</div>
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="picture_upload_button">
+                    <span class="input-group-text input" id="picture_upload_button">
                       Upload
                     </span>
                   </div>
@@ -206,7 +209,7 @@ class Register extends React.Component {
                     </label>
                   </div>
                 </div>
-                <h6 className="mb-3 mt-3">Preview Image:</h6>
+                <div className="mb-3 mt-3 h6">Preview Image</div>
                 <div>
                   <img
                     id="picture-preview"
@@ -218,14 +221,15 @@ class Register extends React.Component {
               </div>
               <div id="regex-error"></div>
               <br></br>
-              <button
-                id="submit-and-pay-button"
-                className="btn btn-primary"
-                type="submit"
-              >
-                Submit And Pay
-              </button>
-              <br></br>
+              <div className="button-div">
+                <button
+                  id="submit-and-pay-button"
+                  className="button"
+                  type="submit"
+                >
+                  Submit And Pay
+                </button>
+              </div>
               <br></br>
             </form>
 

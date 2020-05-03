@@ -3,9 +3,11 @@ var React = require("react");
 class Nav extends React.Component {
   render() {
     return (
-      <nav class="navbar navbar-expand navbar-light bg-light">
+      <nav class="navbar navbar-expand bg-light">
         <div className="container pl-3 pr-3">
-          <a class="navbar-brand">GYMNASTICS DB</a>
+          <a href="/" id="home-logo" class="navbar-brand">
+            GYMNASTICS DB
+          </a>
           <button
             class="navbar-toggler"
             type="button"
@@ -19,46 +21,40 @@ class Nav extends React.Component {
           </button>
           <div class="collapse navbar-collapse" id="navbarsExample02">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link var whenpublic" href="/">
-                  Login
-                </a>
-              </li>
-              <li class="nav-item">
+              <li class="nav-item var whenpublic whenmember whenadmin">
                 <a
-                  class="nav-link var whenpublic whenmember whenadmin"
+                  class="nav-link"
                   href="/profiles/clubs"
                 >
-                  Find A Club
+                  Clubs
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item var whenpublic whenmember whenadmin">
                 <a
-                  class="nav-link var whenpublic whenmember whenadmin"
+                  class="nav-link"
                   href="/discipline"
-                  target="_blank"
                 >
                   Disciplines
                 </a>
               </li>
-              <li class="nav-item var whenmember">
+              {/* <li class="nav-item var whenmember">
                 <a class="nav-link" href="/members">
                   My Dashboard
                 </a>
-              </li>
+              </li> */}
               <li class="nav-item var whenmember">
                 <a class="nav-link" href="" id="mybio">
-                  My Biodata
+                  Biodata
                 </a>
               </li>
               <li class="nav-item var whenmember">
                 <a class="nav-link" href="" id="myprofile">
-                  My Membership Profile
+                 Membership Profile
                 </a>
               </li>
               <li class="nav-item var whenadmin">
                 <a class="nav-link" href="/profiles/athletes" id="myprofile">
-                  Find An Athlete
+                  Athletes
                 </a>
               </li>
 
@@ -77,10 +73,10 @@ class Nav extends React.Component {
                   class="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <a class="dropdown-item" href="" id="editbio">
+                  <a class="dropdown-item input" href="" id="editbio">
                     Biodata
                   </a>
-                  <a class="dropdown-item" href="" id="editprofile">
+                  <a class="dropdown-item input" href="" id="editprofile">
                     Membership Profile
                   </a>
                 </div>
@@ -92,7 +88,7 @@ class Nav extends React.Component {
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-              <p id="admin-mode-text" class="my-2 my-sm-0"></p>
+              <p id="admin-mode-text" class="my-2 my-sm-0 input"></p>
             </form>
           </div>
           <script></script>

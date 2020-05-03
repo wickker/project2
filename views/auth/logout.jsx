@@ -7,9 +7,9 @@ class Logout extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col mt-4">
-            <h5 className="text-success"><em>{this.props.comments}</em></h5>
+            <div className="mt-2"><p>{this.props.comments}</p></div>
             <br></br>
-            <a className="btn btn-primary" href="/">
+            <a className="button" href="/">
               Back To Home Page
             </a>
           </div>

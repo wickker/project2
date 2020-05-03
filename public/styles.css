@@ -1,3 +1,234 @@
+body {
+  font-family: "Quicksand", sans-serif;
+  background: #f0efea;
+}
+
+.navbar-brand {
+  line-height: 30px;
+  font-size: 25px;
+  letter-spacing: 2px;
+  color: black;
+}
+
+.nav-link {
+  /* font-family: 'Raleway', sans-serif; */
+  letter-spacing: 2px;
+  color: #404040;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 0 5px;
+}
+
+#tag-line {
+  margin: 30px 0 40px 0;
+  padding: 20px 20px 10px 20px;
+  text-align: center;
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: black;
+  /* border: solid 1px rgba(0, 0, 0, 0.2); */
+}
+
+#tag-line div {
+  margin-bottom: 10px;
+}
+
+#tag-line span {
+  font-size: 45px;
+}
+
+.entry {
+  margin: 15px;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #e5e3d7;
+  text-align: center;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+
+.form {
+  margin: 15px;
+  padding: 20px 20px 10px 20px;
+  box-sizing: border-box;
+  background: #e5e3d7;
+}
+
+.ath-form {
+  margin-bottom: 20px;
+  padding: 20px 20px 10px 20px;
+  background: #e5e3d7;
+}
+
+.login-font {
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #606165;
+}
+
+.button {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: #606165;
+  font-size: 17px;
+  color: #f0efea;
+  padding: 7px 25px;
+  border: none;
+}
+
+.button:hover {
+  cursor: pointer;
+  border: solid 3px #B08773;
+  color: #f0efea;
+  text-decoration: none;
+  padding: 9px 27px;
+}
+
+.button-div, .table, .card-right {
+  text-align: center;
+}
+
+#ath-deets p {
+  margin-bottom: 10px;
+}
+
+.card-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-left img {
+  border: solid 3px rgba(0, 0, 0, 0.2);
+}
+
+#map {
+  margin: 0 15px;
+  height: 500px;
+}
+
+a img:hover {
+  border: solid 3px #B08773;
+}
+
+.table th, .table td, .table thead th {
+  vertical-align: middle;
+  font-weight: lighter;
+}
+
+.margin-div {
+  margin: 15px;
+}
+
+#table-div {
+  margin: 15px 15px 40px 15px;
+}
+
+td {
+  width: 14%;
+}
+
+.h3 {
+  font-size: 27px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: black;
+  text-align: center;
+}
+
+.h4 {
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: black;
+  text-align: center;
+}
+
+.h5 {
+  font-size:20px;
+  /* text-transform: uppercase; */
+  letter-spacing: 1px;
+  color: #606165;
+}
+
+.entry span {
+  color: black;
+}
+
+.h6 {
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #606165;
+}
+
+p {
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: black;
+}
+
+label {
+  text-align: none;
+  letter-spacing: 2px;
+  font-size: 17px;
+}
+
+.input, select, .table {
+  letter-spacing: 1px;
+  font-size: 17px;
+  font-weight: normal;
+}
+
+.error-msg {
+  letter-spacing: 1px;
+  font-size: 17px;
+  color: rgb(168, 54, 54);
+}
+
+.list {
+  letter-spacing: 1px;
+  font-size: 17px;
+  list-style-position: inside;
+  padding-left: 0;
+  color: #606165;
+}
+
+a {
+  color: #606165;
+}
+
+a:hover, .nav-link:hover {
+  color: #B08773;
+}
+
+#sort-button {
+  margin-left: 200px;
+}
+
+.hello {
+  letter-spacing: 2px;
+  font-size: 25px;
+}
+
+.h1 {
+  letter-spacing: 2px;
+  font-size: 45px;
+  /* text-transform: uppercase; */
+}
+
+
+
+
+
+
+
+
 .custom-select:required:invalid {
   color: #72808e;
 }
@@ -13,14 +244,11 @@ option {
   color: #72808e;
 }
 
-.input-group-text:hover{
+.input-group-text:hover {
   cursor: pointer;
 }
 
-.custom-file-input:hover{
+.custom-file-input:hover {
   cursor: pointer;
 }
 
-#map {
-  height: 500px;
-}

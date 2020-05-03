@@ -54,23 +54,22 @@ class ShowAllAthletesMod extends React.Component {
     }
 
     return (
-      <div className="col-6">
+      <div className="col ath-form">
         <div className="row">
-          <div className="col-6">
+          <div className="col-5 card-left">
             <a href={athleteProfileLink} target="_blank">
               <img
-                className="rounded"
                 src={athlete.picture}
                 alt="athlete logo"
-                height="200px"
-                width="200px"
+                height="250px"
+                width="250px"
               />
             </a>
           </div>
-          <div className="col-6">
-            <h4>
-              <u>{athlete.full_name}</u>
-            </h4>
+          <div className="col-7 card-right" id="ath-deets">
+            <div className="h4 mb-3">
+              {athlete.full_name}
+            </div>
             <p className="mb-0">{discText}</p>
             <p>{discHtml}</p>
             <p>Email: {athlete.email}</p>

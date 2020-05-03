@@ -21,16 +21,16 @@ class ShowAllClubProfiles extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col mt-4">
-            <h3>View All Clubs</h3>
+          <div className="mb-5 mt-2 h3">Clubs</div>
 
             <div id="map"></div>
-
-            <button id="download-button-2">
+            <div className="button-div mt-4 mb-4">
+            <button className="button" id="download-button-2">
               Download All Club Details As CSV
             </button>
 
-            <button id="sort-button">Sort Clubs By Popularity</button>
-
+            <button className="button" id="sort-button">Sort Clubs By Popularity</button>
+            </div>
             <div id="by-alpha">{clubsArrHtmlAlpha}</div>
 
             <div id="by-athcount" hidden>{clubsArrHtmlAthSort}</div>

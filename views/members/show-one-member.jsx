@@ -29,7 +29,7 @@ class ShowOneMember extends React.Component {
           id="pay-now"
           memberId={personalData.id}
           memberTypeId={personalData.member_type_id}
-          className="btn btn-danger"
+          className="button"
         >
           Make Payment Now
         </button>
@@ -39,20 +39,23 @@ class ShowOneMember extends React.Component {
     const ShowOneMember = (
       <div className="container">
         <div className="row">
-          <div className="col mt-4">
-            <h3 className="mb-4">Bio-Data</h3>
-            <h5>Member Id: {personalData.id}</h5>
-            <h5>Full Name/ Club Name: {personalData.full_name}</h5>
-            <h5>Password: {personalData.password}</h5>
-            <h5>Email: {personalData.email}</h5>
-            <h5>Street Address: {personalData.street_address}</h5>
-            <h5>Unit Number: {unitNum}</h5>
-            <h5>Postal Code: {personalData.postal_code}</h5>
-            <h5>Join Date: {joinDate}</h5>
-            <h5>
-              Payment Status: <span className={textColor}>{paymentStatus}</span>
-            </h5>
-            {payButton}
+          <div className="col mt-4 entry">
+            <div className="mb-4 h3">Bio-Data</div>
+            <div className="h5">
+              <h5><span>Member Id:</span> {personalData.id}</h5>
+              <h5><span>Full Name / Club Name:</span> {personalData.full_name}</h5>
+              <h5><span>Password:</span>  {personalData.password}</h5>
+              <h5><span>Email:</span>  {personalData.email}</h5>
+              <h5><span>Street Address:</span> {personalData.street_address}</h5>
+              <h5><span>Unit Number:</span>  {unitNum}</h5>
+              <h5><span>Postal Code:</span>  {personalData.postal_code}</h5>
+              <h5><span>Join Date:</span>  {joinDate}</h5>
+              <h5>
+              <span>Payment Status:</span> {" "}
+                <span className={textColor}>{paymentStatus}</span>
+              </h5>
+              {payButton}
+            </div>
           </div>
         </div>
         <script src="https://js.stripe.com/v3/"></script>

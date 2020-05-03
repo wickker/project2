@@ -52,21 +52,21 @@ class ShowAllClubsMod extends React.Component {
     }
 
     return (
-      <div className="row border">
-        <div className="col-3">
+      <div className="row form">
+        <div className="col-4 card-left">
           <a href={club.club_website_url} target="_blank">
             <img
-              class="rounded"
               src={club.picture}
               alt="club logo"
-              height="200px"
+              height="250px"
+              width="250px"
             />
           </a>
         </div>
-        <div className="col-9">
-          <h4 class="card-title club-name" postcode={club.postal_code}>
-            <u>{club.full_name}</u>
-          </h4>
+        <div className="col-8 card-right">
+          <div class="card-title club-name h4" postcode={club.postal_code}>
+            {club.full_name}
+          </div>
           <p class="card-text">Email: {club.email}</p>
           <p class="card-text mb-0">{discText}</p>
           <p>{discHtml}</p>

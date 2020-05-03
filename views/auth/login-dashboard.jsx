@@ -7,7 +7,8 @@ class LoginDashboard extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col mt-4">
-            <h3>Hello, {this.props.name}!</h3>
+            <div className="hello mt-4"><em>Hello,</em></div>
+            <div className="h1 mt-4">{this.props.name}</div>
           </div>
         </div>
       </div>

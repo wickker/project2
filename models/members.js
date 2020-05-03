@@ -143,6 +143,13 @@ module.exports = (pool) => {
     });
   };
 
+  let getClubMembersCount = (cb) => {
+    let queryText = `select sum(case when member_type_id=1 then 1 else 0 end) as athletes, sum(case when member_type_id=2 then 1 else 0 end) as clubs from profiles;`
+    pool.query(queryText, (err, result) => {
+      cb(result.rows);
+    });
+  }
+
   return {
     registrationForm: registrationForm,
     paymentDetails: paymentDetails,
@@ -151,6 +158,7 @@ module.exports = (pool) => {
     verifyLogin: verifyLogin,
     printName: printName,
     updateMember: updateMember,
-    retrieveEmail: retrieveEmail
+    retrieveEmail: retrieveEmail,
+    getClubMembersCount: getClubMembersCount
   };
 };
