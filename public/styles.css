@@ -88,12 +88,20 @@ body {
   padding: 9px 27px;
 }
 
-.button-div, .table, .card-right {
+.button-div, .table {
   text-align: center;
 }
 
 #ath-deets p {
   margin-bottom: 10px;
+}
+
+.card-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .card-left {
@@ -103,8 +111,12 @@ body {
   align-items: center;
 }
 
-.card-left img {
+.card-left img, .entry img {
   border: solid 3px rgba(0, 0, 0, 0.2);
+}
+
+#ig-icon, #fb-icon {
+  border: none;
 }
 
 #map {
@@ -112,7 +124,7 @@ body {
   height: 500px;
 }
 
-a img:hover {
+a img:hover, #ig-icon:hover, #fb-icon:hover {
   border: solid 3px #B08773;
 }
 
@@ -222,8 +234,11 @@ a:hover, .nav-link:hover {
   /* text-transform: uppercase; */
 }
 
-
-
+#about-div {
+  text-align: center;
+  border-top: solid 1px lightgrey;
+  margin-bottom: 100px
+}
 
 
 

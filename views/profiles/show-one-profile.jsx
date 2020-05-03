@@ -64,10 +64,16 @@ class ShowOneProfile extends React.Component {
       }
       info = (
         <div>
-          <h5>Date of Birth: {profile.dateofbirth}</h5>
-          <h5>Gender: {profile.gender}</h5>
-          <h5>Affiliated Clubs:</h5>
-          <ul>{clubsOrAthArrHtml}</ul>
+          <h5>
+            <span>Date of Birth:</span> {profile.dateofbirth}
+          </h5>
+          <h5>
+            <span>Gender:</span> {profile.gender}
+          </h5>
+          <h5>
+            <span>Affiliated Clubs:</span>{" "}
+          </h5>
+          <ul className="list">{clubsOrAthArrHtml}</ul>
         </div>
       );
     } else if (profile.member_type_id === 2) {
@@ -90,13 +96,18 @@ class ShowOneProfile extends React.Component {
       }
       info = (
         <div>
-          <h5>Number Of Athletes: {clubsOrAthArr.length}</h5>
-          <br></br>
-          <h5>{clubAthText}</h5>
-          <ul>{clubsOrAthArrHtml}</ul>
+          <h5 className="mb-3">
+            <span>Number of Athletes:</span> {clubsOrAthArr.length}
+          </h5>
+
+          <h5>
+            <span>{clubAthText}</span>{" "}
+          </h5>
+          <ul className="list">{clubsOrAthArrHtml}</ul>
           <br></br>
           <a href={profile.club_ig_url} className="mr-3">
             <img
+              id="ig-icon"
               src="https://cdn1.iconfinder.com/data/icons/logotypes/32/instagram-512.png"
               height="50px"
               width="50px"
@@ -104,6 +115,7 @@ class ShowOneProfile extends React.Component {
           </a>
           <a href={profile.club_facebook_url}>
             <img
+              id="fb-icon"
               src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-facebook-512.png"
               height="50px"
               width="50px"
@@ -121,17 +133,21 @@ class ShowOneProfile extends React.Component {
     const ShowOneProfile = (
       <div className="container">
         <div className="row">
-          <div className="col mt-4">
-            <h3 className="mb-4">My {memberType} Profile</h3>
-            <h5>Name: {profile.full_name}</h5>
-            <br></br>
+          <div className="col mt-4 entry h5">
+            <div className="mb-4 h3">My {memberType} Profile</div>
+            <h5>
+              <span>Name: </span> {profile.full_name}
+            </h5>
+
             <a href={pictureLink}>
               <img src={profile.picture} height="250px" width="250px"></img>
             </a>
             <br></br>
             <br></br>
-            <h5>{discText}</h5>
-            <ul>{discArrHtml}</ul>
+            <h5>
+              <span>{discText}</span>
+            </h5>
+            <ul className="list">{discArrHtml}</ul>
 
             {info}
           </div>

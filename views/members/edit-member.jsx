@@ -8,68 +8,65 @@ class EditMember extends React.Component {
     const EditMember = (
       <div className="container">
         <div className="row">
-          <div className="col mt-5">
-            <h3 className="mb-4">Edit Bio-Data</h3>
-            {/* <p className="text-danger">
-              <em>{this.props.comments}</em>
-            </p> */}
+          <div className="col mt-5 form">
+            <div className="mb-4 h3">Edit Bio-Data</div>
             <form method="POST" action="/members/:id/edit">
-              <h6>Full Name As Per NRIC OR Club Name:</h6>
+              <div className="h6">Full Name As Per NRIC / Club Name</div>
               <input
                 type="text"
                 name="full_name"
-                className="form-control"
+                className="form-control input"
                 value={memberData.full_name}
                 required
               />
               <br></br>
-              <h6>Password:</h6>
+              <div className="h6">Password</div>
               <input
                 type="password"
                 id="member-pw"
                 name="password"
                 value={memberData.password}
-                className="form-control"
+                className="form-control input"
                 required
               />
-              <input type="checkbox" id="show-pw-member" />
-              Show Password
+              <input type="checkbox" id="show-pw-member" className="input" />
+              <label>Show Password</label>
               <br></br>
               <br></br>
-              <h6>Email:</h6>
+              <div className="h6">Email</div>
               <input
                 type="text"
                 id="email-input"
                 name="email"
                 value={memberData.email}
-                className="form-control"
+                className="form-control input"
                 required
               />
               <br></br>
-              <div id="duplicate-email"></div>
-              <h6>Street Address:</h6>
+              <div id="duplicate-email" className="error-msg"></div>
+              <div className="h6">Street Address</div>
               <input
                 type="text"
                 name="address"
                 value={memberData.street_address}
-                className="form-control"
+                className="form-control input"
                 required
               />
               <br></br>
-              <h6>Unit Number:</h6>
+              <div className="h6">Unit Number</div>
               <input
                 type="text"
                 name="unit"
                 value={memberData.unit}
-                className="form-control"
+                className="form-control input"
               />
               <br></br>
-              <h6>Postal Code:</h6>
+              <div className="h6">Postal Code</div>
               <input
                 type="text"
                 name="postal_code"
                 value={memberData.postal_code}
-                className="form-control"
+                className="form-control input"
                 required
               />
               <br></br>
@@ -80,11 +77,16 @@ class EditMember extends React.Component {
                 className="form-control"
               />
 
-              <br></br>
-              <button id="edit-member-button" className="btn btn-primary" type="submit">
-                Submit
-              </button>
-              <br></br>
+              <div className="button-div">
+                <button
+                  id="edit-member-button"
+                  className="button"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
+             
               <br></br>
             </form>
           </div>

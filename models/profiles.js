@@ -129,7 +129,7 @@ module.exports = (pool) => {
   };
 
   let getDiscData = (discId, cb) => {
-    let queryText = `select members.full_name, member_discipline.member_id, member_discipline.discipline_id, members.member_type_id, discipline.type from members join member_discipline on (member_discipline.member_id = members.id) join discipline on (discipline.id = member_discipline.discipline_id) where member_discipline.discipline_id = ${discId}`;
+    let queryText = `select members.full_name, member_discipline.member_id, member_discipline.discipline_id, members.member_type_id, discipline.type, profiles.club_website_url from members join member_discipline on (member_discipline.member_id = members.id) join discipline on (discipline.id = member_discipline.discipline_id) join profiles on (profiles.member_id = member_discipline.member_id) where member_discipline.discipline_id = ${discId}`;
     pool.query(queryText, (err, result) => {
       if (err) {
         console.log(err);

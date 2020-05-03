@@ -63,10 +63,10 @@ class EditProfile extends React.Component {
 
       fields = (
         <div>
-          <h6>Select Gender:</h6>
+          <div className="h6">Select Gender</div>
           <select
             name="gender"
-            className="custom-select compulsory"
+            className="custom-select compulsory input"
             value={profile.gender}
           >
             {/* <option value="" disabled selected>
@@ -77,15 +77,15 @@ class EditProfile extends React.Component {
           </select>
           <br></br>
           <br></br>
-          <h6>Date Of Birth:</h6>
+          <div className="h6">Date of Birth</div>
           <input
             type="date"
-            className="form-control date_input compulsory"
+            className="form-control date_input compulsory input"
             name="date_of_birth"
             value={profile.dateofbirth}
           ></input>
           <br></br>
-          <h6>Select Affiliated Club:</h6>
+          <div className="h6">Select Affiliated Club</div>
           {clubsArrHtml}
         </div>
       );
@@ -93,26 +93,26 @@ class EditProfile extends React.Component {
       profileType = "Club";
       fields = (
         <div>
-          <h6>Website:</h6>
+          <div className="h6">Website</div>
           <input
             type="text"
-            className="form-control"
+            className="form-control input"
             name="club_website_url"
             value={profile.club_website_url}
           ></input>
           <br></br>
-          <h6>Instagram:</h6>
+          <div className="h6">Instagram</div>
           <input
             type="text"
-            className="form-control"
+            className="form-control input"
             name="club_ig_url"
             value={profile.club_ig_url}
           ></input>
           <br></br>
-          <h6>Facebook:</h6>
+          <div className="h6">Facebook</div>
           <input
             type="text"
-            className="form-control"
+            className="form-control input"
             name="club_facebook_url"
             value={profile.club_facebook_url}
           ></input>
@@ -123,16 +123,19 @@ class EditProfile extends React.Component {
     const EditProfile = (
       <div className="container">
         <div className="row">
-          <div className="col mt-5">
-            <h3 className="mb-4">
+          <div className="col mt-5 form">
+            <div className="mb-5 h3">
               Edit {profileType} Profile - {profile.full_name}
-            </h3>
+            </div>
 
             <form method="POST" action="/profiles/:id/edit">
-              <h6>Upload Profile Picture/ Club Logo:</h6>
+              <div className="h6">Upload Profile Picture / Club Logo</div>
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="picture_upload_button">
+                  <span
+                    class="input-group-text input"
+                    id="picture_upload_button"
+                  >
                     Upload
                   </span>
                 </div>
@@ -154,7 +157,7 @@ class EditProfile extends React.Component {
                   </label>
                 </div>
               </div>
-              <h6 className="mb-3 mt-3">Preview Image:</h6>
+              <div className="mb-3 mt-3 h6">Preview Image</div>
               <div>
                 <img
                   id="picture-preview"
@@ -176,7 +179,7 @@ class EditProfile extends React.Component {
                 name="membertypeid"
                 value={profile.member_type_id}
               ></input>
-              <h6>Select Affiliated Gymnastics Disciplines:</h6>
+              <div className="h6">Select Affiliated Gymnastics Disciplines</div>
               {discArrHtml}
               <br></br>
 
@@ -184,11 +187,13 @@ class EditProfile extends React.Component {
 
               <br></br>
               <br></br>
-              <button className="btn btn-primary" type="submit">
-                Submit
-              </button>
+              <div className="button-div">
+                <button className="button" type="submit">
+                  Submit
+                </button>
+              </div>
               <br></br>
-              <br></br>
+              
             </form>
 
             <script src="/bs-custom-file-input.js"></script>

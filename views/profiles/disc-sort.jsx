@@ -9,7 +9,7 @@ class sortDisc extends React.Component {
 
     let clubsHtml = dataArr.map((element) => {
       if (element.member_type_id === 2) {
-        let link = "/profiles/" + element.member_id;
+        let link = element.club_website_url;
         return (
           <li>
             <a href={link}>{element.full_name}</a>

@@ -40,7 +40,7 @@ class ShowOneMember extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col mt-4 entry">
-            <div className="mb-4 h3">Bio-Data</div>
+            <div className="mb-4 h3">My Bio-Data</div>
             <div className="h5">
               <h5><span>Member Id:</span> {personalData.id}</h5>
               <h5><span>Full Name / Club Name:</span> {personalData.full_name}</h5>

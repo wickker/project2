@@ -15,10 +15,10 @@ class Home extends React.Component {
                 Total Athlete Members: <span>{this.props.athletes}</span>
               </div>
             </div>
-            <div className="row">
+            <div className="row mb-5">
               <div className="col entry">
                 <div className="mb-4 login-font">New Membership</div>
-                
+
                 <div>
                   <a href="/register" className="button">
                     Register
@@ -56,7 +56,22 @@ class Home extends React.Component {
             </div>
             <div className="row">
               <div className="col mt-4">
-                {/* <h3 className="mb-4">Welcome To Gymnastics DB!</h3> */}
+                <div id="about-div">
+                  <div className="h3 mt-4 mb-5">About</div>
+                  <p>
+                    This web application aims to assist sport / interest group
+                    governing bodies with:
+                  </p>
+
+                  <p>
+                    1. Tracking community growth and collecting key statistics
+                    for further development / sponsorship applications;
+                  </p>
+                  <p>
+                    2. Providing a means to improve and standardize
+                    communication with all members of the community.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

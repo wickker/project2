@@ -16,9 +16,9 @@ class Success extends React.Component {
               ></img>
               <br></br>
               <br></br>
-              <h5>
-                <em>You have successfully registered and paid!</em>
-              </h5>
+              <p>
+                You have successfully registered and paid!
+              </p>
               {/* <h5>
                 <em>Please proceed to login.</em>
               </h5> */}
