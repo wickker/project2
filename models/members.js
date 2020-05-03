@@ -52,18 +52,22 @@ module.exports = (pool) => {
     cb
   ) => {
     let queryText = `insert into members (full_name, password, email, member_type_id, street_address, postal_code, unit, join_date, ispaid) values ('${name}', '${pw}', '${email}', ${memberTypeId}, '${address}', '${postcode}', '${unit}', ${joinDate}, 'false') returning *`;
+    //Write members data
     await pool.query(queryText).then(async (result) => {
       console.log(result.rows[0]);
       let memberId = result.rows[0].id;
       queryText = `insert into profiles (member_id, member_type_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (${memberId}, ${memberTypeId}, '${picture}', '${dob}', '${gender}', '${website}', '${ig}', '${facebook}') returning *`;
+      //Write profiles data
       await pool.query(queryText).then(async (result) => {
         console.log(result.rows[0]);
         let queryText = `select * from member_type where id = ${memberTypeId}`;
+        //Get selected member type details to create payment session
         await pool.query(queryText).then(async (result) => {
           let data = {
             memberTypeDetails: result.rows[0],
             memberId: memberId,
           };
+          //If there are affiliated disciplines, write to member_discipline
           if (discArr) {
             for (let i = 0; i < discArr.length; i++) {
               queryText = `insert into member_discipline (member_id, discipline_id) values (${memberId}, ${discArr[i]}) returning *`;
@@ -72,6 +76,7 @@ module.exports = (pool) => {
               });
             }
           }
+          //If there are affiliated clubs, write to club_athlete
           if (clubsArr) {
             for (let x = 0; x < clubsArr.length; x++) {
               queryText = `insert into club_athlete (club_member_id, athlete_member_id) values (${clubsArr[x]}, ${memberId}) returning *`;
@@ -80,6 +85,7 @@ module.exports = (pool) => {
               });
             }
           }
+          //Send on data required to create payment session 
           cb(data);
         });
       });
@@ -99,6 +105,7 @@ module.exports = (pool) => {
     });
   };
 
+  //Looks for login match
   let verifyLogin = (email, pw, cb) => {
     let queryText = `select * from members where email ='${email}' and password = '${pw}'`;
     pool.query(queryText, (err, result) => {
@@ -110,6 +117,7 @@ module.exports = (pool) => {
     });
   };
 
+  //Gets selected member biodata
   let printName = (cb, id) => {
     let queryText = `select * from members where id = ${id}`;
     pool.query(queryText, (err, result) => {
@@ -121,6 +129,7 @@ module.exports = (pool) => {
     });
   };
 
+  //Update biodata
   let updateMember = (id, name, pw, email, unit, postcode, address) => {
     let queryText = `update members set full_name = '${name}', password = '${pw}', email = '${email}', unit = '${unit}', postal_code = ${postcode}, street_address = '${address}' where id = ${id} returning *`;
     pool.query(queryText, (err, result) => {
@@ -132,6 +141,7 @@ module.exports = (pool) => {
     });
   };
 
+  //Check for existence of email
   let retrieveEmail = (cb, email) => {
     let queryText = `select * from members where email = '${email}'`;
     pool.query(queryText, (err, result) => {
@@ -143,6 +153,7 @@ module.exports = (pool) => {
     });
   };
 
+  //Get club and athlete member counts
   let getClubMembersCount = (cb) => {
     let queryText = `select sum(case when member_type_id=1 then 1 else 0 end) as athletes, sum(case when member_type_id=2 then 1 else 0 end) as clubs from profiles;`
     pool.query(queryText, (err, result) => {

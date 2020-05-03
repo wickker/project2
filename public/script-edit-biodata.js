@@ -5,16 +5,18 @@ let newEmail;
 
 let emailInput = document.getElementById("email-input");
 
+//Captures initial email 
 function saveInitEmail(event) {
   initialEmail = event.target.value;
   console.log("init email: ", initialEmail);
   emailInput.removeEventListener("focus", saveInitEmail, false);
 }
 
+//Sends ajax request to check for email duplicates in server db
 function veriEmailDuplicates(event) {
   newEmail = event.target.value;
   console.log("new email: ", newEmail);
-
+  //Responds depending on whether an email duplicate is found 
   function responseHandler() {
     console.log(this.responseText);
     let responseText = this.responseText;
@@ -26,10 +28,12 @@ function veriEmailDuplicates(event) {
       errorMsg.className = "text-danger";
       dupliDiv.appendChild(errorMsg);
       let editButton = document.getElementById("edit-member-button");
+      //If a duplicate email is found, disable the submit form button
       editButton.disabled = true;
     } else {
       console.log("else case");
       let editButton = document.getElementById("edit-member-button");
+      //If no duplicate email, enable the submit form button 
       editButton.disabled = false;
       let dupliDiv = document.getElementById("duplicate-email");
       dupliDiv.innerText = "";
@@ -39,7 +43,7 @@ function veriEmailDuplicates(event) {
   request.addEventListener("load", responseHandler);
   request.open("POST", "/register/email");
   request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
+  //Only send ajax request if the edited email is not the same as the initial email
   if (initialEmail !== newEmail) {
     data = {
       inputEmail: newEmail,
@@ -47,6 +51,7 @@ function veriEmailDuplicates(event) {
     request.send(JSON.stringify(data));
   } else {
     let editButton = document.getElementById("edit-member-button");
+    //Enable the submit form button
     editButton.disabled = false;
     let dupliDiv = document.getElementById("duplicate-email");
     dupliDiv.innerText = "";
@@ -54,6 +59,7 @@ function veriEmailDuplicates(event) {
   }
 }
 
+//Shows password depending on checkbox
 function togglePw() {
   console.log("toggle pw func");
   var x = document.getElementById("member-pw");

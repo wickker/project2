@@ -12,6 +12,7 @@ const cloudinary_upload_preset = "wh3xm7xt";
 
 let veriEmail = false;
 
+//Upload image function 
 let uploadImage = (event) => {
   function responseHandler() {
     let responseObject = JSON.parse(this.responseText);
@@ -34,6 +35,7 @@ let uploadImage = (event) => {
   request.send(formData);
 };
 
+//Show relevant member profile to fill depending on member option selected
 let showRelevantProfile = (event) => {
   function responseHandler() {
     let responseObject = JSON.parse(this.responseText);
@@ -66,6 +68,7 @@ let showRelevantProfile = (event) => {
     }
   }
   var request = new XMLHttpRequest();
+  //Gets member type details via ajax request
   request.addEventListener("load", responseHandler);
   request.open("POST", "/register/new");
   request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -73,12 +76,15 @@ let showRelevantProfile = (event) => {
   request.send(JSON.stringify(memberTypeIdObj));
 };
 
+//Checks if email and url data is of the right format
 function isAllDataValid() {
+  //Email input needs to have '@'
   let checkEmail = (email) => {
     const regex = new RegExp("@");
     const isEmailOk = regex.test(email);
     return isEmailOk;
   };
+  //Url input needs to have 'https://'
   let checkUrl = (url) => {
     const regex = new RegExp("https://");
     const isLinkOk = regex.test(url);
@@ -88,6 +94,7 @@ function isAllDataValid() {
   let website = document.getElementById("club_website_url").value;
   let facebook = document.getElementById("club_facebook_url").value;
   let ig = document.getElementById("club_ig_url").value;
+  //Veri variables are boolean
   let emailVeri = checkEmail(email);
   console.log(emailVeri);
   let websiteVeri = checkUrl(website);
@@ -99,7 +106,7 @@ function isAllDataValid() {
   let fbVeri = checkUrl(facebook);
   console.log(facebook);
   console.log(fbVeri);
-
+  //If any of the patterns do not match 
   if (
     emailVeri === false ||
     (websiteVeri === false && website !== "") ||
@@ -110,9 +117,10 @@ function isAllDataValid() {
     regexDiv.innerText = "";
     let errorMsg = document.createElement("p");
     errorMsg.textContent = "Invalid email or URL entered. Please try again.";
-    errorMsg.className = "text-danger";
     regexDiv.appendChild(errorMsg);
+    //Returns false if there is a problem with any of the email or url data
     return false;
+    //Returns true of there is no problem with any of the email or url data
   } else if (veriEmail === true) {
     let regexDiv = document.getElementById("regex-error");
     regexDiv.innerText = "";
@@ -122,6 +130,7 @@ function isAllDataValid() {
 
 let payment = (event) => {
   event.preventDefault();
+  //Only goes to payment page if data validation is cleared
   if (!isAllDataValid()) {
     return;
   }
@@ -160,6 +169,7 @@ let payment = (event) => {
   formObj.disciplineArr = [];
   let disciplineArr2 = document.getElementsByClassName("form-check-input-disc");
   console.log(disciplineArr2);
+  //Pushes checked check box items into an array 
   for (let i = 0; i < disciplineArr2.length; i++) {
     if (disciplineArr2[i].checked) {
       formObj.disciplineArr.push(parseInt(disciplineArr2[i].value));
@@ -176,6 +186,7 @@ let payment = (event) => {
   request.send(JSON.stringify(formObj));
 };
 
+//Checks for duplicates in email with the db
 function veriEmailDuplicates(event) {
   let inputEmail = event.target.value;
   console.log(inputEmail);

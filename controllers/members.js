@@ -1,7 +1,10 @@
 const sha256 = require("js-sha256");
+
+//Requires stripe test payment key
 const stripe = require("stripe")("sk_test_FmNttL0lkqXFZgzq2tjknhNB00qilakYCt");
 
 module.exports = (db) => {
+  //Display home page with club and athlete member statistics
   let showHome = (request, response) => {
     let cbGetClubMembersCount = (result) => {
       console.log(result);
@@ -43,10 +46,12 @@ module.exports = (db) => {
     let joinDate = Date.now();
     let discArr = request.body.disciplineArr;
     let clubsArr = request.body.clubsArr;
+    //Create stripe check out session using membership details 
     let cbPaymentDetails = async (result) => {
       console.log(result);
       let priceInCents = parseFloat(result.memberTypeDetails.price) * 100;
       let nameString = result.memberTypeDetails.type + " Membership";
+      //Adds unique member id to end of check out session id
       let successUrl =
         "http://127.0.0.1:3000/success?session_id={CHECKOUT_SESSION_ID}---" +
         result.memberId;
@@ -103,6 +108,7 @@ module.exports = (db) => {
     response.render("./auth/success");
   };
 
+  //Processes login and creates cookies upon successful login
   let login = (request, response) => {
     console.log(request.body);
     let email = request.body.email;
@@ -111,9 +117,11 @@ module.exports = (db) => {
       if (result.length > 0) {
         let memberId = result[0].id;
         let memberName = result[0].full_name;
+        //If admin account is used 
         if (memberName === "Admin") {
           response.cookie("admin", sha256("true"));
         }
+        //If regular member account is used 
         response.cookie("memberid", memberId);
         response.cookie("loggedin", sha256("true"));
         let obj = {
@@ -121,10 +129,12 @@ module.exports = (db) => {
         };
         response.render("./auth/login-dashboard", obj);
       } else {
+        //If no matches found for member email and password
         let obj = {
           comments: "User not found. Please try again.",
         };
         let cbGetClubMembersCount = (result) => {
+          //Display member statistics while rendering login error message
           obj.athletes = result[0].athletes;
           obj.clubs = result[0].clubs;
           response.render("home", obj);
@@ -135,6 +145,7 @@ module.exports = (db) => {
     db.members.verifyLogin(email, password, cbVerifyLogin);
   };
 
+  //Displays "hello" message upon successful login
   let showDashboard = (request, response) => {
     let memberId = parseInt(request.cookies.memberid);
     let cbPrintName = (result) => {
@@ -146,6 +157,7 @@ module.exports = (db) => {
     db.members.printName(cbPrintName, memberId);
   };
 
+  //Logout and clears login cookies 
   let logout = (request, response) => {
     let obj = {
       comments: "Logout success!",
@@ -155,7 +167,8 @@ module.exports = (db) => {
     response.clearCookie("admin");
     response.render("./auth/logout", obj);
   };
-
+  
+  //Displays member biodata page
   let showPersonalParticulars = (request, response) => {
     let memberId = request.params.id;
     let cbDisplay = (result) => {
@@ -168,6 +181,7 @@ module.exports = (db) => {
     db.members.printName(cbDisplay, memberId);
   };
 
+  //Displays edit biodata page
   let showEditMemberForm = (request, response) => {
     let memberId = request.params.id;
     let cbSendDataToForm = (result) => {
@@ -180,6 +194,7 @@ module.exports = (db) => {
     db.members.printName(cbSendDataToForm, memberId);
   };
 
+  //Submits edited biodata
   let submitEditedMember = (request, response) => {
     console.log(request.body);
     let name = request.body.full_name;
@@ -194,10 +209,12 @@ module.exports = (db) => {
     response.redirect(link);
   };
 
+  //Handles ajax request for subsequent payment if member did not pay initially
   let makeSubsPayment = (request, response) => {
     console.log(request.body);
     let memberTypeId = parseInt(request.body.memberType);
     let memberId = parseInt(request.body.memberId);
+    //Create new payment session 
     let cbPaymentDetails = async (result) => {
       console.log(result);
       let priceInCents = parseFloat(result.price) * 100;
@@ -218,6 +235,7 @@ module.exports = (db) => {
             },
           ],
           success_url: successUrl,
+          //Cancel url is biodata page
           cancel_url: cancelUrl,
         });
         response.send(session);
@@ -228,6 +246,7 @@ module.exports = (db) => {
     db.members.paymentDetails(memberTypeId, cbPaymentDetails);
   };
 
+  //Checks for duplicate email in database via ajax during registration and biodata edit
   let checkEmail = (request, response) => {
     let inputEmail = request.body.inputEmail;
     let cbRetrieveEmail = (result) => {

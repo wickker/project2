@@ -2,7 +2,11 @@
  * bsCustomFileInput v1.3.4 (https://github.com/Johann-S/bs-custom-file-input)
  * Copyright 2018 - 2020 Johann-S <johann.servoire@gmail.com>
  * Licensed under MIT (https://github.com/Johann-S/bs-custom-file-input/blob/master/LICENSE)
+ * 
  */
+
+ //Imported module, shows file name selected for uploading 
+ 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :

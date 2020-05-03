@@ -1,5 +1,6 @@
 console.log("script all!");
 
+//Get cookie value depending on name argument, returns "" if cookie name cannot be found 
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -16,18 +17,21 @@ function getCookie(cname) {
   return "";
 }
 
+//Modifies the navigation bar display depending on whether a member or the admin is logged in
 function checkLogins() {
   let memberIdCookie = getCookie("memberid");
   let adminCookie = getCookie("admin");
+  //Elements only admins should see
   let adminHtmlArr = document.getElementsByClassName("whenadmin");
+  //All elements in the navigation bar
   let varHtmlArr = document.getElementsByClassName("var");
+  //Elements only regular members should see
   let memberHtmlArr = document.getElementsByClassName("whenmember");
+  //Elements only the public should see
   let publicHtmlArr = document.getElementsByClassName("whenpublic");
-
   if (memberIdCookie && memberIdCookie !== "") {
     //When admin is logged in
     document.getElementById("home-logo").removeAttribute("href");
-    
     if (adminCookie && adminCookie !== "") {
       for (let x = 0; x < varHtmlArr.length; x++) {
         varHtmlArr[x].hidden = true;

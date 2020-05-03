@@ -1,5 +1,6 @@
 console.log("script sort by discipline!");
 
+//Makes the discipline drop down list a set of links to the respective sort pages
 function goToPage(event) {
   let discId = event.target.value;
   let link = "/discipline/" + discId;
@@ -9,6 +10,7 @@ function goToPage(event) {
 let clubsList = document.getElementById("clubs-list");
 let athList = document.getElementById("athletes-list");
 
+//Toggles visibility of the affiliated clubs list 
 function showClubs() {
   if (clubsList.hidden === true) {
     clubsList.hidden = false;
@@ -17,13 +19,16 @@ function showClubs() {
   }
 }
 
+//Toggles visibility of the affiliated athletes list
 function showAthletes() {
   let adminCookie = getCookie("admin");
+  //Shows athlete list if admin is logged in, hides on the next click
   if (athList.hidden === true && adminCookie && adminCookie !== "") {
     athList.hidden = false;
   } else if (athList.hidden === false && adminCookie && adminCookie !== "") {
     athList.hidden = true;
   } else {
+    //If admin is not logged in, hide athlete list and display error message
     let adminDiv = document.getElementById("admin-comment");
     athList.hidden = true;
     adminDiv.innerHTML = "";

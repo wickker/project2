@@ -3,6 +3,7 @@ var Main = require("../MAIN");
 
 class Register extends React.Component {
   render() {
+    //Creates membership type price dropdown list
     let memberTypeArr = this.props.memberTypeArr;
     let memberTypeArrHtml = memberTypeArr.map((element) => {
       let string = element.type + " - $" + element.price;
@@ -13,6 +14,7 @@ class Register extends React.Component {
       );
     });
 
+    //Creates list of checkboxes for affiliated disciplines
     let disciplineArr = this.props.disciplineArr;
     let disciplineArrHtml = disciplineArr.map((element) => {
       return (
@@ -28,9 +30,11 @@ class Register extends React.Component {
       );
     });
 
+    //Sets default profile/ logo picture
     let defaultPicture =
       "https://icons-for-free.com/iconfiles/png/512/add+create+new+profile+user+icon-1320185001431562707.png";
 
+    //Creates list of checkboxes for affiliated clubs
     let clubsArr = this.props.clubsArr;
     let clubsArrHtml = clubsArr.map((element) => {
       return (
@@ -51,7 +55,7 @@ class Register extends React.Component {
         <div className="row">
           <div className="col mt-5 form">
             <div className="mb-5 h3">New Membership Registration</div>
-
+            {/* Main registration form  */}
             <form id="registration-form">
               <input
                 type="text"
@@ -80,6 +84,7 @@ class Register extends React.Component {
                 required
               />
               <br></br>
+              {/* If there is a duplicate email  */}
               <div id="dupli-email"></div>
               <input
                 type="text"
@@ -117,7 +122,8 @@ class Register extends React.Component {
               </select>
               <br></br>
               <br></br>
-              {/* Profile Fields */}
+
+              {/* Profile fields */}
               <div className="mt-4 mb-5 profile athlete h4" hidden>
                 Athlete Membership - Profile
               </div>
@@ -148,7 +154,7 @@ class Register extends React.Component {
                 <br></br>
               </div>
               <div className="profile athlete" hidden>
-              <div className="mb-2 h6">Date of Birth</div>
+                <div className="mb-2 h6">Date of Birth</div>
                 <input
                   type="date"
                   className="form-control date_input compulsory input"
@@ -184,10 +190,15 @@ class Register extends React.Component {
                 <br></br>
               </div>
               <div className="profile athlete club" hidden>
-              <div className="mb-2 h6">Upload Profile Picture / Club Logo</div>
+                <div className="mb-2 h6">
+                  Upload Profile Picture / Club Logo
+                </div>
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text input" id="picture_upload_button">
+                    <span
+                      class="input-group-text input"
+                      id="picture_upload_button"
+                    >
                       Upload
                     </span>
                   </div>
@@ -219,8 +230,12 @@ class Register extends React.Component {
                   ></img>
                 </div>
               </div>
-              <div id="regex-error"></div>
+
+              {/* If there is a regex error  */}
+              <div id="regex-error" className="error-msg"></div>
               <br></br>
+
+              {/* Submit button */}
               <div className="button-div">
                 <button
                   id="submit-and-pay-button"

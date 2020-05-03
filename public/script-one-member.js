@@ -8,7 +8,6 @@ const cloudinary_url = "https://api.cloudinary.com/v1_1/dwoimiuph/image/upload";
 const cloudinary_upload_preset = "wh3xm7xt";
 
 let payment = (event) => {
-  
   function responseHandler() {
     let responseObject = JSON.parse(this.responseText);
     console.log(responseObject);
