@@ -1,5 +1,5 @@
 const sha256 = require("js-sha256");
-const constants = require("./constants");
+const constants = require("../constants");
 
 //Requires stripe test payment key
 const stripe = require("stripe")("sk_test_FmNttL0lkqXFZgzq2tjknhNB00qilakYCt");
