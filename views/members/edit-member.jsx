@@ -10,6 +10,7 @@ class EditMember extends React.Component {
         <div className="row">
           <div className="col mt-5 form">
             <div className="mb-4 h3">Edit Bio-Data</div>
+            
             <form method="POST" action="/members/:id/edit">
               <div className="h6">Full Name As Per NRIC / Club Name</div>
               <input
@@ -86,7 +87,7 @@ class EditMember extends React.Component {
                   Submit
                 </button>
               </div>
-             
+
               <br></br>
             </form>
           </div>

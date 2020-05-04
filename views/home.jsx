@@ -57,12 +57,11 @@ class Home extends React.Component {
             <div className="row">
               <div className="col mt-4">
                 <div id="about-div">
-                  <div className="h3 mt-4 mb-5">About</div>
+                  <div className="h3 mt-4 mb-4">About</div>
                   <p>
                     This web application aims to assist sport / interest group
                     governing bodies with:
                   </p>
-
                   <p>
                     1. Tracking community growth and collecting key statistics
                     for further development / sponsorship applications;
@@ -71,7 +70,15 @@ class Home extends React.Component {
                     2. Providing a means to improve and standardize
                     communication with all members of the community.
                   </p>
+                  <div className="h3 mt-5 mb-4">Demo</div>
+                  <p>
+                    Admin Login: admin@email.com | 1<br />
+                    Guest Athlete Member Login: guestath@email.com | 1<br />
+                    Guest Club Member Login: guestclub@email.com | 1<br />
+                    Card Number for Payment: 4242 4242 4242 4242
+                  </p>
                 </div>
+                ub
               </div>
             </div>
           </div>

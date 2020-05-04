@@ -9,7 +9,7 @@ class ShowAllAthletesMod extends React.Component {
     let clubHtml = "";
     let athleteProfileLink = "/profiles/" + athlete.member_id;
     
-
+    //Generate list of affiliated disciplines only if there are
     if (athlete.discArr.length > 0) {
       discHtml = athlete.discArr.map((element) => {
         let link;
@@ -41,6 +41,7 @@ class ShowAllAthletesMod extends React.Component {
       discText = "Affiliated Disciplines: ";
     }
 
+    //Generate list of affiliated clubs only if there are
     if (athlete.clubArr.length > 0) {
       clubHtml = athlete.clubArr.map((element) => {
         let link = "/profiles/" + element.club_member_id;

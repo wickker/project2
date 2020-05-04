@@ -14,13 +14,13 @@ function formatDate(date) {
 
 let genders = ["Female", "Male"];
 
-for (let i = 2; i < 27; i++) {
-  let randomAth = Math.floor(Math.random() * 24) + 2;
-  let randomClub = Math.floor(Math.random() * 4) + 27;
-  console.log(
-    `insert into club_athlete (club_member_id, athlete_member_id) values (${randomClub}, ${i});`
-  );
-}
+// for (let i = 2; i < 27; i++) {
+//   let randomAth = Math.floor(Math.random() * 24) + 2;
+//   let randomClub = Math.floor(Math.random() * 4) + 27;
+//   console.log(
+//     `insert into club_athlete (club_member_id, athlete_member_id) values (${randomClub}, ${i});`
+//   );
+// }
 
 // for (let i = 2; i < 32; i++) {
 //   let randomDisc = Math.floor(Math.random() * 6) + 1;
@@ -30,15 +30,16 @@ for (let i = 2; i < 27; i++) {
 //   );
 // }
 
-// for (let i = 2; i < 27; i++) {
-//   let picture = faker.image.avatar();
-//   let dob = faker.date.between('1975-01-01', '2013-12-31');
-//   dob = formatDate(dob);
-//   let gender = faker.random.arrayElement(genders);
-//   console.log(
-//     `insert into profiles (member_type_id, member_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (1, ${i}, '${picture}', '${dob}', '${gender}', '', '', '');`
-//   );
-// }
+for (let i = 2; i < 27; i++) {
+  // let picture = faker.image.avatar();
+  let picture = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Emoji_u263a.svg/1024px-Emoji_u263a.svg.png";
+  let dob = faker.date.between('1975-01-01', '2013-12-31');
+  dob = formatDate(dob);
+  let gender = faker.random.arrayElement(genders);
+  console.log(
+    `insert into profiles (member_type_id, member_id, picture, dateofbirth, gender, club_website_url, club_ig_url, club_facebook_url) values (1, ${i}, '${picture}', '${dob}', '${gender}', '', '', '');`
+  );
+}
 
 // for (let i = 0; i < 20; i++) {
 //   let name = faker.name.findName();

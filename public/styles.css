@@ -106,7 +106,7 @@ body {
 }
 
 .card-left img, .entry img {
-  border: solid 3px rgba(0, 0, 0, 0.2);
+  border: solid 3px rgba(0, 0, 0, 0.5);
 }
 
 #ig-icon, #fb-icon {

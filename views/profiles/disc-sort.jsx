@@ -7,6 +7,7 @@ class sortDisc extends React.Component {
     let dataArr = this.props.dataArr;
     let fields;
 
+    //Generate list of affiliated club links
     let clubsHtml = dataArr.map((element) => {
       if (element.member_type_id === 2) {
         let link = element.club_website_url;
@@ -18,6 +19,7 @@ class sortDisc extends React.Component {
       }
     });
 
+    //Generate list of affiliated athlete links
     let athHtml = dataArr.map((element) => {
       if (element.member_type_id === 1) {
         let link = "/profiles/" + element.member_id;
@@ -29,6 +31,7 @@ class sortDisc extends React.Component {
       }
     });
 
+    //If there are affiliated members to show
     if (dataArr.length > 0) {
       fields = (
         <div>
@@ -43,7 +46,6 @@ class sortDisc extends React.Component {
               {clubsHtml}
             </ol>
           </div>
-          {/* <br></br> */}
           <div>
             <button className="button" id="view-athletes">
               Affiliated Athletes
@@ -55,6 +57,7 @@ class sortDisc extends React.Component {
           </div>
         </div>
       );
+      //If there are no affiliated members to show
     } else {
       fields = <p>This discipline has no affiliated clubs or athletes yet.</p>;
     }

@@ -6,13 +6,13 @@ class EditProfile extends React.Component {
     let defaultPicture =
       "https://icons-for-free.com/iconfiles/png/512/add+create+new+profile+user+icon-1320185001431562707.png";
 
-    // console.log(this.props);
     let profile = this.props.profile;
     let discArr = this.props.disciplineArr;
     let discArrOg = this.props.disciplineArrOg;
     let clubsArr = this.props.clubsOrAthArr;
     let clubsArrOg = this.props.clubsArrOg;
 
+    //Checks the affiliated disciplines that were previously selected
     let discArrHtml = discArrOg.map((element) => {
       let isChecked = false;
       for (let i = 0; i < discArr.length; i++) {
@@ -34,6 +34,7 @@ class EditProfile extends React.Component {
       );
     });
 
+    //Checks the affilaited clubs that were previously selected
     let clubsArrHtml = clubsArrOg.map((element) => {
       let isChecked = false;
       for (let i = 0; i < clubsArr.length; i++) {
@@ -58,9 +59,9 @@ class EditProfile extends React.Component {
     let profileType;
     let fields;
 
+    //If athlete member, show only fields that are relevant for edit
     if (profile.member_type_id === 1) {
       profileType = "Athlete";
-
       fields = (
         <div>
           <div className="h6">Select Gender</div>
@@ -69,9 +70,6 @@ class EditProfile extends React.Component {
             className="custom-select compulsory input"
             value={profile.gender}
           >
-            {/* <option value="" disabled selected>
-              Select Gender
-            </option> */}
             <option value="Female">Female</option>
             <option value="Male">Male</option>
           </select>
@@ -89,6 +87,7 @@ class EditProfile extends React.Component {
           {clubsArrHtml}
         </div>
       );
+      //If club member, show only fields  that are relevant for edit
     } else if (profile.member_type_id === 2) {
       profileType = "Club";
       fields = (
@@ -193,7 +192,6 @@ class EditProfile extends React.Component {
                 </button>
               </div>
               <br></br>
-              
             </form>
 
             <script src="/bs-custom-file-input.js"></script>

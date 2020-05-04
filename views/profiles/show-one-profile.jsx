@@ -13,6 +13,7 @@ class ShowOneProfile extends React.Component {
     let clubsOrAthArrHtml;
     let clubsOrAthArr = this.props.clubsOrAthArr;
 
+    //Show list of affiliated disciplines
     let discArrHtml;
     let discArr = this.props.disciplineArr;
     discArrHtml = discArr.map((element) => {
@@ -45,10 +46,12 @@ class ShowOneProfile extends React.Component {
       );
     });
 
+    //If athlete member
     if (profile.member_type_id === 1) {
       memberType = "Athlete";
       discText = "Affiliated Disciplines:";
-      if (clubsOrAthArr) {
+      //If there are affiliated clubs, generate list
+      if (clubsOrAthArr.length > 0) {
         clubsOrAthArrHtml = clubsOrAthArr.map((element) => {
           let profileLink = "/profiles/" + element.club_member_id;
           return (
@@ -58,6 +61,7 @@ class ShowOneProfile extends React.Component {
           );
         });
         clubAthText = "Affiliated Clubs:";
+        //If there are no affiliated clubs, leave field blank
       } else {
         clubAthText = "";
         clubsOrAthArrHtml = "";
@@ -71,16 +75,18 @@ class ShowOneProfile extends React.Component {
             <span>Gender:</span> {profile.gender}
           </h5>
           <h5>
-            <span>Affiliated Clubs:</span>{" "}
+            <span>{clubAthText}</span>{" "}
           </h5>
           <ul className="list">{clubsOrAthArrHtml}</ul>
         </div>
       );
+      //If club member
     } else if (profile.member_type_id === 2) {
       memberType = "Club";
       pictureLink = profile.club_website_url;
       discText = "Disciplines Offered:";
-      if (clubsOrAthArr) {
+      //If there are affiliated athletes, generate list
+      if (clubsOrAthArr.length > 0) {
         clubsOrAthArrHtml = clubsOrAthArr.map((element) => {
           let profileLink = "/profiles/" + element.athlete_member_id;
           return (
@@ -90,6 +96,7 @@ class ShowOneProfile extends React.Component {
           );
         });
         clubAthText = "Affiliated Athletes:";
+        //If there are no affiliated athletes, leave field blank
       } else {
         clubAthText = "";
         clubsOrAthArrHtml = "";
@@ -125,6 +132,7 @@ class ShowOneProfile extends React.Component {
       );
     }
 
+    //If there are no affiliated disciplines, leave field blank
     if (discArr.length === 0) {
       discText = "";
       discArrHtml = "";
@@ -134,11 +142,10 @@ class ShowOneProfile extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col mt-4 entry h5">
-            <div className="mb-4 h3">My {memberType} Profile</div>
+            <div className="mb-4 h3">{memberType} Profile</div>
             <h5>
-              <span>Name: </span> {profile.full_name}
+              <span>Name: </span>{profile.full_name}
             </h5>
-
             <a href={pictureLink}>
               <img src={profile.picture} height="250px" width="250px"></img>
             </a>
@@ -148,7 +155,6 @@ class ShowOneProfile extends React.Component {
               <span>{discText}</span>
             </h5>
             <ul className="list">{discArrHtml}</ul>
-
             {info}
           </div>
         </div>
