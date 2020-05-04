@@ -47,7 +47,7 @@ class Home extends React.Component {
                     required
                   />
                   <br></br>
-                  <button className="button" type="submit" id="login=button">
+                  <button className="button" type="submit" id="login-button">
                     Login
                   </button>
                   <br></br>
