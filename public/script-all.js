@@ -55,6 +55,8 @@ function checkLogins() {
       document.getElementById("editprofile").href =
         "/profiles/" + memberIdCookie + "/edit";
     }
+    document.getElementById("register-button").href = "#";
+    document.getElementById("login-button").disabled = true;
     //When the page is accessible to the public
   } else {
     document.getElementById("home-logo").href = "/";
