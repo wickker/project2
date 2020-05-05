@@ -1,6 +1,6 @@
 console.log("script all!");
 
-//Get cookie value depending on name argument, returns "" if cookie name cannot be found 
+//Get cookie value depending on name argument, returns "" if cookie name cannot be found
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -54,6 +54,12 @@ function checkLogins() {
         "/members/" + memberIdCookie + "/edit";
       document.getElementById("editprofile").href =
         "/profiles/" + memberIdCookie + "/edit";
+    }
+    let registerButton = document.getElementById("register-button");
+    let loginButton = document.getElementById("login-button");
+    if (loginButton && registerButton) {
+      registerButton.href = "#";
+      loginButton.disabled = true;
     }
     //When the page is accessible to the public
   } else {

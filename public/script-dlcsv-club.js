@@ -37,7 +37,7 @@ function initDlButton() {
     };
     var request = new XMLHttpRequest();
     request.addEventListener("load", responseHandler);
-    var url = "http://127.0.0.1:3000/profiles/clubs/api";
+    var url = "https://gentle-castle-21661.herokuapp.com/profiles/clubs/api";
     request.open("GET", url);
     request.send();
   };

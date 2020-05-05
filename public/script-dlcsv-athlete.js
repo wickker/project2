@@ -39,7 +39,7 @@ function initDlButton() {
     };
     var request = new XMLHttpRequest();
     request.addEventListener("load", responseHandler);
-    var url = "http://127.0.0.1:3000/profiles/athletes/api";
+    var url = "https://gentle-castle-21661.herokuapp.com/profiles/athletes/api";
     request.open("GET", url);
     //Gets parsed csv data from ajax api
     request.send();

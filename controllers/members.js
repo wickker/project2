@@ -1,4 +1,5 @@
 const sha256 = require("js-sha256");
+const constants = require("../constants");
 
 //Requires stripe test payment key
 const stripe = require("stripe")("sk_test_FmNttL0lkqXFZgzq2tjknhNB00qilakYCt");
@@ -53,8 +54,9 @@ module.exports = (db) => {
       let nameString = result.memberTypeDetails.type + " Membership";
       //Adds unique member id to end of check out session id
       let successUrl =
-        "http://127.0.0.1:3000/success?session_id={CHECKOUT_SESSION_ID}---" +
+        constants.baseUrl + "success?session_id={CHECKOUT_SESSION_ID}---" +
         result.memberId;
+      console.log(successUrl);
       try {
         const session = await stripe.checkout.sessions.create({
           payment_method_types: ["card"],
@@ -67,7 +69,7 @@ module.exports = (db) => {
             },
           ],
           success_url: successUrl,
-          cancel_url: "http://127.0.0.1:3000/register",
+          cancel_url: constants.baseUrl + "register"
         });
         response.send(session);
       } catch (error) {
@@ -220,9 +222,9 @@ module.exports = (db) => {
       let priceInCents = parseFloat(result.price) * 100;
       let nameString = result.type + " Membership";
       let successUrl =
-        "http://127.0.0.1:3000/success?session_id={CHECKOUT_SESSION_ID}---" +
+        constants.baseUrl + "success?session_id={CHECKOUT_SESSION_ID}---" +
         memberId;
-      let cancelUrl = "http://127.0.0.1:3000/members/" + memberId;
+      let cancelUrl = constants.baseUrl + "members/" + memberId;
       try {
         const session = await stripe.checkout.sessions.create({
           payment_method_types: ["card"],

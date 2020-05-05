@@ -19,10 +19,10 @@ module.exports = (pool) => {
           //Get all clubs a member could possibly be affiliated to
           await pool.query(queryText).then(async (result) => {
             data.clubsArrOg = result.rows;
-            //if the member in question is an athlete member, get all previously affiliated clubs 
+            //if the member in question is an athlete member, get all previously affiliated clubs
             if (data.profile.member_type_id === 1) {
               queryText = `select club_athlete.club_member_id, club_athlete.athlete_member_id, members.full_name from club_athlete join members on (members.id = club_athlete.club_member_id) where club_athlete.athlete_member_id = ${id}`;
-            //If the member in question is a club member, get all previously affiliated athletes
+              //If the member in question is a club member, get all previously affiliated athletes
             } else if (data.profile.member_type_id === 2) {
               queryText = `select club_athlete.club_member_id, club_athlete.athlete_member_id, members.full_name from club_athlete join members on (members.id = club_athlete.athlete_member_id) where club_athlete.club_member_id = ${id}`;
             }
@@ -36,24 +36,29 @@ module.exports = (pool) => {
     });
   };
 
-  //If a member has selected affiliated disciplines, update the member_discipline table 
+  //If a member has selected affiliated disciplines, update the member_discipline table
   let writeDisciplines = async (discArr, memberId, response, link) => {
     let queryText = `delete from member_discipline where member_id = ${memberId} returning *`;
     await pool.query(queryText).then(async (result) => {
       console.log(result.rows);
-      if (discArr) {
-        for (let i = 0; i < discArr.length; i++) {
-          queryText = `insert into member_discipline (member_id, discipline_id) values (${memberId}, ${discArr[i]}) returning *`;
-          await pool.query(queryText).then(async (result) => {
-            console.log(result.rows);
-          });
-        }
+      if (discArr === undefined) {
+        response.redirect(link);
+        return;
+      }
+      if (!Array.isArray(discArr)) {
+        discArr = [parseInt(discArr)];
+      }
+      for (let i = 0; i < discArr.length; i++) {
+        queryText = `insert into member_discipline (member_id, discipline_id) values (${memberId}, ${discArr[i]}) returning *`;
+        await pool.query(queryText).then(async (result) => {
+          console.log(result.rows);
+        });
       }
       response.redirect(link);
     });
   };
 
-  //Update edited athlete profile 
+  //Update edited athlete profile
   let writeAthleteProfileAndClubAthletes = async (
     memberId,
     gender,
@@ -68,22 +73,29 @@ module.exports = (pool) => {
     await pool.query(queryText).then(async (result) => {
       console.log(result.rows[0]);
       queryText = `delete from club_athlete where athlete_member_id = ${memberId} returning *`;
-      //Update club_athlete table 
+      //Update club_athlete table
       await pool.query(queryText).then(async (result) => {
-        if (clubsArr) {
-          for (let i = 0; i < clubsArr.length; i++) {
-            queryText = `insert into club_athlete (club_member_id, athlete_member_id) values (${clubsArr[i]}, ${memberId}) returning *`;
-            await pool.query(queryText).then(async (result) => {
-              console.log(result.rows);
-            });
-          }
+        console.log("clubs arr: ", clubsArr);
+        if (clubsArr === undefined) {
+          writeDisciplines(discArr, memberId, response, link);
+          return;
+        }
+        if (!Array.isArray(clubsArr)) {
+          clubsArr = [parseInt(clubsArr)];
+        }
+        console.log("clubs arr 2:", clubsArr);
+        for (let i = 0; i < clubsArr.length; i++) {
+          queryText = `insert into club_athlete (club_member_id, athlete_member_id) values (${clubsArr[i]}, ${memberId}) returning *`;
+          await pool.query(queryText).then(async (result) => {
+            console.log(result.rows);
+          });
         }
         writeDisciplines(discArr, memberId, response, link);
       });
     });
   };
 
-  //Update edited club profile 
+  //Update edited club profile
   let writeClubProfile = async (
     memberId,
     website,
@@ -114,7 +126,7 @@ module.exports = (pool) => {
         await pool.query(queryText).then(async (result) => {
           data.clubsArr[i].discArr = result.rows;
           queryText = `select club_athlete.club_member_id, club_athlete.athlete_member_id, members.full_name from club_athlete join members on (members.id = club_athlete.athlete_member_id) where club_athlete.club_member_id = ${data.clubsArr[i].member_id}`;
-          //For each club, get the athletes affiliated 
+          //For each club, get the athletes affiliated
           await pool.query(queryText).then(async (result) => {
             data.clubsArr[i].athArr = result.rows;
           });
@@ -131,14 +143,14 @@ module.exports = (pool) => {
     await pool.query(queryText).then(async (result) => {
       let data = {};
       data.athArr = result.rows;
-      //For each athlete 
+      //For each athlete
       for (let i = 0; i < data.athArr.length; i++) {
         queryText = `select member_discipline.member_id, member_discipline.discipline_id, discipline.type from member_discipline join discipline on (member_discipline.discipline_id = discipline.id) where member_discipline.member_id = ${data.athArr[i].member_id}`;
         //Get all affiliated disciplines
         await pool.query(queryText).then(async (result) => {
           data.athArr[i].discArr = result.rows;
           queryText = `select club_athlete.club_member_id, club_athlete.athlete_member_id, members.full_name from club_athlete join members on (members.id = club_athlete.club_member_id) where club_athlete.athlete_member_id = ${data.athArr[i].member_id}`;
-          //Get all affiliated clubs 
+          //Get all affiliated clubs
           await pool.query(queryText).then(async (result) => {
             data.athArr[i].clubArr = result.rows;
           });
@@ -148,7 +160,7 @@ module.exports = (pool) => {
     });
   };
 
-  //Get all the club and athlete member data affiliated to each discipline 
+  //Get all the club and athlete member data affiliated to each discipline
   let getDiscData = (discId, cb) => {
     let queryText = `select members.full_name, member_discipline.member_id, member_discipline.discipline_id, members.member_type_id, discipline.type, profiles.club_website_url from members join member_discipline on (member_discipline.member_id = members.id) join discipline on (discipline.id = member_discipline.discipline_id) join profiles on (profiles.member_id = member_discipline.member_id) where member_discipline.discipline_id = ${discId}`;
     pool.query(queryText, (err, result) => {
@@ -160,7 +172,7 @@ module.exports = (pool) => {
     });
   };
 
-  //Count the number of athlete and club members for each discipline 
+  //Count the number of athlete and club members for each discipline
   let getTableByDisc = async (cb) => {
     let queryText = `SELECT
     sum(case when discipline.id=1 and members.member_type_id=2 then 1 else 0 end) as mag,

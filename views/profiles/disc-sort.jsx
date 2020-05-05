@@ -13,7 +13,7 @@ class sortDisc extends React.Component {
         let link = element.club_website_url;
         return (
           <li>
-            <a href={link}>{element.full_name}</a>
+            <a href={link} target="_blank">{element.full_name}</a>
           </li>
         );
       }

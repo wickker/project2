@@ -20,7 +20,7 @@ class Home extends React.Component {
                 <div className="mb-4 login-font">New Membership</div>
 
                 <div>
-                  <a href="/register" className="button">
+                  <a href="/register" className="button" id="register-button">
                     Register
                   </a>
                 </div>
@@ -47,7 +47,7 @@ class Home extends React.Component {
                     required
                   />
                   <br></br>
-                  <button className="button" type="submit">
+                  <button className="button" type="submit" id="login-button">
                     Login
                   </button>
                   <br></br>
